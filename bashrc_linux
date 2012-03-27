@@ -1,0 +1,53 @@
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+###
+### Basic config
+###
+export EDITOR=vim
+HISTFILESIZE=100000
+HISTSIZE=10000
+# don't put duplicate lines in the history. See bash(1) for more options
+export HISTCONTROL=ignoredups
+# ... and ignore same sucessive entries.
+export HISTCONTROL=ignoreboth
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
+
+# arrows for bash history completion
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+
+
+###
+### Prompt
+###
+txtblk='\[\033[0;30m\]'
+txtred='\[\033[1;31m\]'
+txtgrn='\[\033[1;32m\]'
+txtylw='\[\033[1;33m\]'
+txtblu='\[\033[1;34m\]'
+txtprpl='\[\033[1;35m\]'
+txtend='\[\033[0m\]'
+
+BOX_LABEL="[Party Box]"
+PROMPT_WARNING="No warning for now...\n"
+
+# color the messages
+case "$TERM" in 
+    xterm-color | xterm-256color)
+    PROMPT_WARNING="${txtred}${PROMPT_WARNING}${txtend}"
+    BOX_LABEL="${txtylw}${BOX_LABEL}${txtend}"
+    ;;
+esac
+
+PS1="${txtgrn}\u@\h:${txtend}${txtblu}\w\$ ${txtend}"
+PS1="${PROMPT_WARNING}${BOX_LABEL} $PS1"
+
+###
+### Aliases & Functions
+###
+alias ack='ack-grep'
+alias ls='ls -lh --color=auto'
+alias grep="grep --color=auto"
