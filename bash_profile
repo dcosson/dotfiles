@@ -28,21 +28,41 @@ PS1="\n\
 \[\033[0;35m\]\$PWD \[\033[0;37m\]\$(parse_git_branch)\$(parse_svn_branch)$ "
 export PS1
 
-# tmux 256 colors hack (tmux keeps ignoring the setting in .tmux.conf and insists on setting TERM to "screen")
+# tmux 256 colors hack (wtf, tmux keeps ignoring the term setting in .tmux.conf and insists on setting TERM to "screen")
 if [ "$TERM" == "screen" ]
 then
     export TERM="screen-256color"
 fi
 
+# the classic MySQL library path fix for OSX 
+export LD_LIBRARY_PATH=/usr/local/mysql-5.5.19-osx10.6-x86_64/lib
+export PATH=$PATH:/usr/local/mysql/bin
+
 # For VirtualEnvWrapper
 export WORKON_HOME=~/virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
 
-# Not sure:
+# Not sure what this is:
 test -r /sw/bin/init.sh && . /sw/bin/init.sh
 
 if [ -f `brew --prefix`/etc/bash_completion ]; then
 . `brew --prefix`/etc/bash_completion
 fi
 
-source ~/.bash_profile_venmo
+###
+### Some random aliases I like to use
+###
+alias lsl='ls -G -lh' #b/c I almost always want ls -lh instead of ls
+alias grep='grep -i --color=auto'
+#rename the current tab in terminal/iterm2
+rn () { export PROMPT_COMMAND="echo -ne \"\033]0;$1\007\""; }
+alias mongolocal='sudo mongod run --config /usr/local/etc/mongod.conf --fork && sleep 1 && tail -20 /usr/local/var/log/mongodb/mongod.log'
+# for ruby guard gem if using ruby bundler (tracks file differences)
+alias guard="bundle exec guard"
+
+###
+### Source custom shortcuts/aliases for specific setups
+###
+if [ -f ~/.bash_profile_venmo ] ; then
+    source ~/.bash_profile_venmo
+fi

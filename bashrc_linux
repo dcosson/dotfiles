@@ -1,3 +1,6 @@
+### Here's an idea: let's make linux servers nice to use too!
+###   (up arrow history, ack, a useful prompt, etc)
+
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -49,5 +52,5 @@ PS1="${PROMPT_WARNING}${BOX_LABEL} $PS1"
 ### Aliases & Functions
 ###
 alias ack='ack-grep'
-alias ls='ls -lh --color=auto'
+alias lsl='ls -lh --color=auto'
 alias grep="grep --color=auto"
