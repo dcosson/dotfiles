@@ -45,6 +45,10 @@ set grepprg=ack
 set equalalways " Multiple windows, when created, are equal in size
 "set splitbelow splitright"
 
+"set up a dece statusline
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
+set laststatus=2 "show even if window not split
+
 " Professor VIM says '87% of users prefer jj over esc', jj abrams disagrees
 " imap jj <Esc>
 
@@ -87,10 +91,6 @@ au BufRead,BufNewFile {Capfile,Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru,.
 
 " popout split buffer hack
 " map <C-S-p>  <Esc>:hide<CR>:blast<CR>
-
-" duplicate line"
-" imap <C-D> <Esc>yyp
-" nmap <C-D> <Esc>yyp
 
 nmap ,bs :ConqueTermSplit bash<CR>
 nmap ,bv :ConqueTermVSplit bash<CR>
