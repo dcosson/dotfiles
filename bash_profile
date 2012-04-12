@@ -50,15 +50,19 @@ if [ -f `brew --prefix`/etc/bash_completion ]; then
 fi
 
 ###
-### Some random aliases I like to use
+### Some random aliases/functions I find useful
 ###
 alias lsl='ls -G -lh' #b/c I almost always want ls -lh instead of ls
 alias grep='grep -i --color=auto'
-#rename the current tab in terminal/iterm2
-rn () { export PROMPT_COMMAND="echo -ne \"\033]0;$1\007\""; }
+# rename the current tab in terminal/iterm2
+rn() { export PROMPT_COMMAND="echo -ne \"\033]0;$1\007\""; }
+# run local mongodb (from /usr/local) and put it in the background
 alias mongolocal='sudo mongod run --config /usr/local/etc/mongod.conf --fork && sleep 1 && tail -20 /usr/local/var/log/mongodb/mongod.log'
 # for ruby guard gem if using ruby bundler (tracks file differences)
 alias guard="bundle exec guard"
+# Get a rough outline of a python file - show class & function declarations, block comments, first line of docstrings
+pyoutline() { egrep --color=auto '^[\t ]*class|^[\t ]*def|^[\t ]*###.+$|^[\t ]*""".+$' $1; } # apparently \s doesn't work so I use [\t ]
+
 
 ###
 ### Source custom shortcuts/aliases for specific setups
