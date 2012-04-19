@@ -9,6 +9,10 @@ filetype on
 filetype plugin on
 filetype indent on
 syntax enable
+" let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+let g:solarized_contrast='high'
+let g:solarized_visibility='normal'
 set background=dark
 colorscheme solarized
 
@@ -46,7 +50,7 @@ set equalalways " Multiple windows, when created, are equal in size
 "set splitbelow splitright"
 
 "set up a dece statusline
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
+set statusline=%F%m%r%h%w\ \ \ [TYPE=%Y]\ \ \ [POS=%l,%v][%p%%]" [FORMAT=%{&ff}] %{strftime(\"%d/%m/%y\ -\ %H:%M\")} %F%m%r%h%w
 set laststatus=2 "show even if window not split
 
 " Professor VIM says '87% of users prefer jj over esc', jj abrams disagrees
@@ -246,7 +250,7 @@ nnoremap ,w :TlistToggle<CR>
 nnoremap ,W :TlistToggle<CR> :NERDTreeToggle<CR>
 
 " use kortina's color scheme
-colorscheme ir_black_kortina
+" colorscheme ir_black_kortina
 
 " pyflakes-vim customizations
 highlight SpellBad term=undercurl gui=undercurl guisp=Orange
