@@ -282,3 +282,8 @@ set foldmethod=indent   "fold based on indent
 set foldnestmax=10      "deepest fold is 10 levels
 set nofoldenable        "I can't handle the fold...
 set foldlevel=1         "this is just what i use
+
+
+" Testing syntastic hack
+noremap <silent><leader>lc :lcl<CR>
+noremap <silent><leader>lo :lw<CR>

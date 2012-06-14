@@ -36,7 +36,7 @@ fi
 
 # the classic MySQL library path fix for OSX 
 export LD_LIBRARY_PATH=/usr/local/mysql-5.5.19-osx10.6-x86_64/lib
-export PATH=$PATH:/usr/local/mysql/bin
+export PATH=$PATH:/usr/local/sbin:/usr/local/mysql/bin
 
 # For VirtualEnvWrapper
 export WORKON_HOME=~/virtualenvs
