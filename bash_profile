@@ -23,9 +23,19 @@ parse_git_branch() {
 parse_svn_branch() {
         svn info 2> /dev/null | grep URL | sed -e "s/.*\/\(.*\)$/(\1)/"
 }
+# set up colors
+txtblack='\[\033[0;30m\]'
+txtred='\[\033[0;31m\]'
+txtgreen='\[\033[0;32m\]'
+txtorange='\[\033[0;33m\]'
+txtpurple='\[\033[0;35m\]'
+txtwhite='\[\033[0;37m\]'
+txtend='\[\033[0m\]'
+
+# prompt
 PS1="\n\
-\[\033[0;32m\]\u$DIM \[\033[0;37m\]@ \[\033[0;33m\]\h 
-\[\033[0;35m\]\$PWD \[\033[0;37m\]\$(parse_git_branch)\$(parse_svn_branch)$ "
+${txtgreen}\u$DIM${txtend} ${txtwhite}@${txtend} ${txtorange}\h${txtend}
+${txtpurple}\$PWD${txtend} ${txtwhite}\$(parse_git_branch)\$(parse_svn_branch)\$ "  # don't end color, I want my text white
 export PS1
 
 # tmux 256 colors hack (wtf, tmux keeps ignoring the term setting in .tmux.conf and insists on setting TERM to "screen")
@@ -61,8 +71,7 @@ alias mongolocal='sudo mongod run --config /usr/local/etc/mongod.conf --fork && 
 # for ruby guard gem if using ruby bundler (tracks file differences)
 alias guard="bundle exec guard"
 # Get a rough outline of a python file - show class & function declarations, block comments, first line of docstrings
-pyoutline() { egrep --color=auto '^[\t ]*class|^[\t ]*def|^[\t ]*###.+$|^[\t ]*""".+$' $1; } # apparently \s doesn't work so I use [\t ]
-
+pyoutline() { egrep --color=auto '^[\t ]*class|^[\t ]*def|^[\t ]*###.+$|^[\t ]*""".+$' $1; } # apparently \s doesn't work so I use tab or space
 
 ###
 ### Source custom shortcuts/aliases for specific setups
