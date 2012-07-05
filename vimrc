@@ -16,7 +16,7 @@ let g:solarized_visibility='normal'
 set background=dark
 colorscheme solarized
 
-" very good vimrc (and well documented!):
+" good example vimrc (and well documented!):
 " http://github.com/twerth/dotfiles/blob/master/etc/vim/vimrc
 
 set nocompatible
@@ -70,9 +70,10 @@ let g:miniBufExplModSelTarget = 1
 
 " let g:pyflakes_use_quickfix = 0
 
-" don't need smart indent in python
+" Python (no smart indent, set up the built-in omni complete and pydiction)
 autocmd FileType python set nosmartindent
 autocmd FileType python set omnifunc=pythoncomplete#Complete
+let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
 autocmd FileType python setlocal list
 autocmd FileType python SoftTab 4
 autocmd FileType python nmap ,8 :call Pep8()<CR>
@@ -131,7 +132,6 @@ nmap \v :e $MYVIMRC<CR>
 ":helptags ~/.vim/doc 
 
 
-let g:pydiction_location = '~/.vim/bundle/pydiction/ftplugin/pydiction-1.2/complete-dict'
 "##################################################
 "# move through CamelCaseWords
 "##################################################
