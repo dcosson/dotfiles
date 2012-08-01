@@ -29,9 +29,9 @@ set number
 set et
 set sw=4
 set smarttab
+" set smartindent
 set incsearch
 set hlsearch
-set ignorecase
 set smartcase
 set cursorline
 " set cursorcolumn
@@ -42,7 +42,6 @@ set ruler
 set showmode
 set showcmd
 set ai " Automatically set the indent of a new line (local to buffer)
-set smartindent
 set tags=./tags;
 set grepprg=ack
 
@@ -77,8 +76,9 @@ let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
 autocmd FileType python setlocal list
 autocmd FileType python SoftTab 4
 autocmd FileType python nmap ,8 :call Pep8()<CR>
+" autocmd FileType python nmap ,8 :call Flake8()<CR>
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html SoftTab 2 
+autocmd FileType html SoftTab 4 
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css SoftTab 4
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
@@ -255,12 +255,12 @@ nnoremap ,W :TlistToggle<CR> :NERDTreeToggle<CR>
 " pyflakes-vim customizations
 highlight SpellBad term=undercurl gui=undercurl guisp=Orange
 
-" ---- Syntastic syntax checking (pyflakes-vim just isn't trendy anymore) ----
+" ---- Syntastic syntax checking ----
 " status line
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-let g:syntastic_disable=['py']
+" let g:syntastic_disable=['py']
 let g:syntastic_enable_signs=0 "sign markings (at beginning of line, before line numbers)
 let g:syntastic_enable_highlighting=1
 let g:syntastic_auto_loc_list=0
@@ -270,7 +270,6 @@ let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': [],
                            \ 'passive_filetypes': ['txt'] }
 " key shortcuts
-" nmap ,s :SyntasticCheck<CR>
 nmap ,e :SyntasticCheck<CR> :Errors<CR>
 
 let g:Tlist_Ctags_Cmd = '/usr/local/bin/ctags' " tell taglist where exuberant ctags is

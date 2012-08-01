@@ -46,14 +46,11 @@ fi
 
 # the classic MySQL library path fix for OSX 
 export LD_LIBRARY_PATH=/usr/local/mysql-5.5.19-osx10.6-x86_64/lib
-export PATH=$PATH:/usr/local/sbin:/usr/local/mysql/bin
+export PATH=/usr/local/bin:$PATH/usr/local/sbin:/usr/local/mysql/bin
 
 # For VirtualEnvWrapper
 export WORKON_HOME=~/virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
-
-# Not sure what this is:
-test -r /sw/bin/init.sh && . /sw/bin/init.sh
 
 if [ -f `brew --prefix`/etc/bash_completion ]; then
 . `brew --prefix`/etc/bash_completion
