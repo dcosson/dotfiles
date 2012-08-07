@@ -54,3 +54,6 @@ PS1="${PROMPT_WARNING}${BOX_LABEL} $PS1"
 alias ack='ack-grep'
 alias lsl='ls -lh --color=auto'
 alias grep="grep --color=auto"
+alias gg='git grep -n --color --heading --break'
+
+wcr() { wc -l `find . -type f | egrep "$1$"`; } # recursive word count, pass in the file extension

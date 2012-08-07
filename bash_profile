@@ -61,6 +61,8 @@ fi
 ###
 alias lsl='ls -G -lh' #b/c I almost always want ls -lh instead of ls
 alias grep='grep -i --color=auto'
+alias gg='git grep -n --color --heading --break'
+
 # rename the current tab in terminal/iterm2
 rn() { export PROMPT_COMMAND="echo -ne \"\033]0;$1\007\""; }
 # run local mongodb (from /usr/local) and put it in the background
@@ -69,6 +71,7 @@ alias mongolocal='sudo mongod run --config /usr/local/etc/mongod.conf --fork && 
 alias guard="bundle exec guard"
 # Get a rough outline of a python file - show class & function declarations, block comments, first line of docstrings
 pyoutline() { egrep --color=auto '^[\t ]*class|^[\t ]*def|^[\t ]*###.+$|^[\t ]*""".+$' $1; } # apparently \s doesn't work so I use tab or space
+wcr() { wc -l `find . -type f | egrep "$1$"`; } # recursive word count, pass in the file extension
 
 ###
 ### Source custom shortcuts/aliases for specific setups
