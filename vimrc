@@ -108,7 +108,7 @@ nmap ,d "*yiw
 " copy highlighted to clipboard
 vmap ,c "*y
 " paste 
-nmap ,v "*p
+nmap ,v :set paste<CR>"*p:set nopaste<CR>
 " underline current line, markdown style
 nmap ,u "zyy"zp:.s/./-/g<CR>:let @/ = ""<CR>
 
@@ -255,6 +255,19 @@ nnoremap ,W :TlistToggle<CR> :NERDTreeToggle<CR>
 " pyflakes-vim customizations
 highlight SpellBad term=undercurl gui=undercurl guisp=Orange
 
+"this function maps Alt-down and Alt-Up to move other window
+
+function! ScrollOtherWindow(dir)
+    if a:dir == "down"
+        let move = "\<C-E>"
+    elseif a:dir == "up"
+        let move = "\<C-Y>"
+    endif
+    exec "normal \<C-W>p" . move . "\<C-W>p"
+endfunction
+"map ,y :call ScrollOtherWindow("down")<CR>
+"map <C-E> :call ScrollOtherWindow("up")<CR>
+
 " ---- Syntastic syntax checking ----
 " status line
 set statusline+=%#warningmsg#
@@ -271,9 +284,10 @@ let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'passive_filetypes': ['txt'] }
 " key shortcuts
 nmap ,e :SyntasticCheck<CR> :Errors<CR>
+nmap ,r :edit<CR>  " reload current file
 
 let g:Tlist_Ctags_Cmd = '/usr/local/bin/ctags' " tell taglist where exuberant ctags is
-let Tlist_Use_Right_Window = 1 "so NerdTree can go on the left for FULL ON IDE STYLE!
+let Tlist_Use_Right_Window = 1
 let Tlist_WinWidth = 45
 
 "folding settings
@@ -286,3 +300,40 @@ set foldlevel=1         "this is just what i use
 " Testing syntastic hack
 noremap <silent><leader>lc :lcl<CR>
 noremap <silent><leader>lo :lw<CR>
+
+
+
+" Test Functions
+function WhatFunctionAreWeIn()
+  let strList = ["while", "foreach", "ifelse", "if else", "for", "if", "else", "try", "catch", "case"]
+  let foundcontrol = 1
+  let position = ""
+  let pos=getpos(".")          " This saves the cursor position
+  let view=winsaveview()       " This saves the window view
+  while (foundcontrol)
+    let foundcontrol = 0
+    normal [{
+    call search('\S','bW')
+    let tempchar = getline(".")[col(".") - 1]
+    if (match(tempchar, ")") >=0 )
+      normal %
+      call search('\S','bW')
+    endif
+    let tempstring = getline(".")
+    for item in strList
+      if( match(tempstring,item) >= 0 )
+        let position = item . " - " . position
+        let foundcontrol = 1
+        break
+      endif
+    endfor
+    if(foundcontrol == 0)
+      call cursor(pos)
+      call winrestview(view)
+      return tempstring.position
+    endif
+  endwhile
+  call cursor(pos)
+  call winrestview(view)
+  return tempstring.position
+endfunction

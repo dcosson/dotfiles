@@ -1,5 +1,5 @@
 ###
-### General Settings
+### General bash Settings
 ###
 alias ls='ls -G'
 export PS1="\h:\w$ "
@@ -44,17 +44,29 @@ then
     export TERM="screen-256color"
 fi
 
+
+###
+### Path-ey things
+###
 # the classic MySQL library path fix for OSX 
 export LD_LIBRARY_PATH=/usr/local/mysql-5.5.19-osx10.6-x86_64/lib
-export PATH=/usr/local/bin:$PATH/usr/local/sbin:/usr/local/mysql/bin
+export PATH=/usr/local/bin:$PATH:/usr/local/sbin:/usr/local/mysql/bin
 
 # For VirtualEnvWrapper
 export WORKON_HOME=~/virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
 
+# brew bash completion
 if [ -f `brew --prefix`/etc/bash_completion ]; then
 . `brew --prefix`/etc/bash_completion
 fi
+
+# EC2 Command Line Tools
+export JAVA_HOME="`/usr/libexec/java_home -v 1.6`"
+export EC2_PRIVATE_KEY="$(/bin/ls $HOME/.ec2/pk-*.pem)"
+export EC2_CERT="$(/bin/ls $HOME/.ec2/cert-*.pem)"
+export EC2_HOME="/usr/local/Cellar/ec2-api-tools/1.5.2.3/jars"
+
 
 ###
 ### Some random aliases/functions I find useful
@@ -62,6 +74,7 @@ fi
 alias lsl='ls -G -lh' #b/c I almost always want ls -lh instead of ls
 alias grep='grep -i --color=auto'
 alias gg='git grep -n --color --heading --break'
+alias .b='source ~/.bash_profile'
 
 # rename the current tab in terminal/iterm2
 rn() { export PROMPT_COMMAND="echo -ne \"\033]0;$1\007\""; }
@@ -73,9 +86,16 @@ alias guard="bundle exec guard"
 pyoutline() { egrep --color=auto '^[\t ]*class|^[\t ]*def|^[\t ]*###.+$|^[\t ]*""".+$' $1; } # apparently \s doesn't work so I use tab or space
 wcr() { wc -l `find . -type f | egrep "$1$"`; } # recursive word count, pass in the file extension
 
+# create an empty new bash script
+quickscript() { touch $1; chmod a+x $1; echo -e "#!/bin/bash\n\n" > $1; vim $1; }
+
 ###
-### Source custom shortcuts/aliases for specific setups
+### Source custom shortcuts/aliases for specific/private setups
 ###
 if [ -f ~/.bash_profile_venmo ] ; then
     source ~/.bash_profile_venmo
 fi
+
+#if [ -f ~/.bash_profile_secrets ] ; then
+#    source ~/.bash_profile_secrets
+#fi
