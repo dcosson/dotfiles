@@ -1,0 +1,27 @@
+[user]
+	name = Danny Cosson
+	email = dcosson@gmail.com
+[core]
+	excludesfile = /Users/dcosson/.gitignore
+[rerere]
+	enabled = 1
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+[alias]
+	br = branch
+	ci = commit -a
+	co = checkout
+	df = diff
+	dwc = diff -w -M --color-words
+	lg = log
+	ll = log -p
+	rb = rebase
+	fix = rebase -i origin/master
+	rba = rebase --abort
+	rbc = rebase --continue
+	re = remote
+	st = status
+	sup = "submodule foreach 'git co master; git up'"
+	tree = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	up = pull --rebase
