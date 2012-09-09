@@ -48,13 +48,14 @@ fi
 ###
 ### Path-ey things
 ###
-# the classic MySQL library path fix for OSX 
-export LD_LIBRARY_PATH=/usr/local/mysql-5.5.19-osx10.6-x86_64/lib
+# the classic MySQL library path fix for OSX  (un-comment if installing mysql)
+# export LD_LIBRARY_PATH=/usr/local/mysql-5.5.19-osx10.6-x86_64/lib
 export PATH=/usr/local/bin:$PATH:/usr/local/sbin:/usr/local/mysql/bin
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # rvm
 
 # For VirtualEnvWrapper
 export WORKON_HOME=~/virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
+source /usr/local/share/python/virtualenvwrapper.sh
 
 # brew bash completion
 if [ -f `brew --prefix`/etc/bash_completion ]; then
@@ -65,7 +66,7 @@ fi
 export JAVA_HOME="`/usr/libexec/java_home -v 1.6`"
 export EC2_PRIVATE_KEY="$(/bin/ls $HOME/.ec2/pk-*.pem)"
 export EC2_CERT="$(/bin/ls $HOME/.ec2/cert-*.pem)"
-export EC2_HOME="/usr/local/Cellar/ec2-api-tools/1.5.2.3/jars"
+export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
 
 
 ###

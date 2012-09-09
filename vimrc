@@ -2,8 +2,8 @@
 set nocompatible
 filetype off " Pathogen needs to run before plugin indent on
 call pathogen#infect()
+call pathogen#helptags() " generate helptags for everything in 'runtimepath'
 " call pathogen#runtime_append_all_bundles()
-" call pathogen#helptags() " generate helptags for everything in 'runtimepath'
 filetype plugin indent on
 filetype on
 filetype plugin on
@@ -48,6 +48,8 @@ set grepprg=ack
 set equalalways " Multiple windows, when created, are equal in size
 "set splitbelow splitright"
 
+set mouse=a  " enable scroll with mouse wheel
+
 "set up a dece statusline
 set statusline=%F%m%r%h%w\ \ \ [TYPE=%Y]\ \ \ [POS=%l,%v][%p%%]" [FORMAT=%{&ff}] %{strftime(\"%d/%m/%y\ -\ %H:%M\")} %F%m%r%h%w
 set laststatus=2 "show even if window not split
@@ -55,9 +57,9 @@ set laststatus=2 "show even if window not split
 " Professor VIM says '87% of users prefer jj over esc', jj abrams disagrees
 " imap jj <Esc>
 
-" turn on cursorline when going to a new buffer (so you know where you are)
-autocmd WinEnter * setlocal cursorline
-autocmd WinLeave * setlocal nocursorline
+" to set cursorline/column when going to a new buffer (so you know where you are)
+" autocmd WinEnter * setlocal cursorline  " always leave it on for now
+" autocmd WinLeave * setlocal nocursorline
 " autocmd WinEnter * setlocal cursorcolumn
 " autocmd WinLeave * setlocal nocursorcolumn
 " autocmd BufRead,BufNewFile,BufDelete * :syntax on
