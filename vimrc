@@ -69,8 +69,6 @@ let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
 
-" let g:pyflakes_use_quickfix = 0
-
 " Python (no smart indent, set up the built-in omni complete and pydiction)
 autocmd FileType python set nosmartindent
 autocmd FileType python set omnifunc=pythoncomplete#Complete
@@ -89,7 +87,10 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 "autocmd FileType python set ft=python.django " For SnipMate
 "autocmd FileType html set ft=html.django_template " For SnipMate
 
+" Custom filetypes
 au BufRead,BufNewFile {Capfile,Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru,.caprc,.irbrc,irb_tempfile*} set ft=ruby
+au BufRead,BufNewFile {*.less,*.sass} set ft=css
+au BufRead,BufNewFile *.us set ft=html
 
 " fix backspace in vim 7
 :set backspace=indent,eol,start
@@ -131,8 +132,17 @@ nmap \s :source $MYVIMRC<CR>
 nmap \v :e $MYVIMRC<CR>
 
 :runtime! ~/.vim/
-":helptags ~/.vim/doc 
 
+" w!! to write with sudo
+cnoreabbrev <expr> w!!
+    \((getcmdtype() == ':' && getcmdline() == 'w!!')
+    \?('!sudo tee % >/dev/null'):('w!!'))
+
+" Have Vim jump to the last position when reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal g'\"" | endif
+endif
 
 "##################################################
 "# move through CamelCaseWords
@@ -283,7 +293,7 @@ let g:syntastic_check_on_open=1
 " mode info
 let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': [],
-                           \ 'passive_filetypes': ['txt'] }
+                           \ 'passive_filetypes': ['txt', 'go'] }
 " key shortcuts
 nmap ,e :SyntasticCheck<CR> :Errors<CR>
 nmap ,r :edit<CR>  " reload current file
@@ -302,40 +312,3 @@ set foldlevel=1         "this is just what i use
 " Testing syntastic hack
 noremap <silent><leader>lc :lcl<CR>
 noremap <silent><leader>lo :lw<CR>
-
-
-
-" Test Functions
-function WhatFunctionAreWeIn()
-  let strList = ["while", "foreach", "ifelse", "if else", "for", "if", "else", "try", "catch", "case"]
-  let foundcontrol = 1
-  let position = ""
-  let pos=getpos(".")          " This saves the cursor position
-  let view=winsaveview()       " This saves the window view
-  while (foundcontrol)
-    let foundcontrol = 0
-    normal [{
-    call search('\S','bW')
-    let tempchar = getline(".")[col(".") - 1]
-    if (match(tempchar, ")") >=0 )
-      normal %
-      call search('\S','bW')
-    endif
-    let tempstring = getline(".")
-    for item in strList
-      if( match(tempstring,item) >= 0 )
-        let position = item . " - " . position
-        let foundcontrol = 1
-        break
-      endif
-    endfor
-    if(foundcontrol == 0)
-      call cursor(pos)
-      call winrestview(view)
-      return tempstring.position
-    endif
-  endwhile
-  call cursor(pos)
-  call winrestview(view)
-  return tempstring.position
-endfunction
