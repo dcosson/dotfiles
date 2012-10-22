@@ -1,28 +1,20 @@
-##My configuration files for vim, bash, and whatever else
+##My configuration files for vim, bash, and whatever else it is I use on the computer these days
 
-###Vim plugins:
-First, recompile vim with a bunch of options
+###Vim:
+Make sure vim is compiled with ruby and python support (and you probably also want clipboard, --with-features=huge, etc).
 
-    cd ~/src
-    hg clone https://vim.googlecode.com/hg/ vim
-    cd vim
-    ./configure --with-features=huge --enable-perlinterp --enable-pythoninterp --enable-rubyinterp --enable-tclinterp --enable-gui=yes
-    sudo mv /usr/bin/vim /usr/bin/vim_original
-    sudo make install
+To use these dotfiles:
 
-Activate the submodules:
+    # clone the repo
+    cd ~/dotfiles
+    git submodule update --init
+    # symlink or copy the files you want to the right location
+    ln -s ~/dotfiles/vimrc ~/.vimrc
+    ln -s ~/dotfiles/vim ~/.vim
 
-    cd ~/config-files/
-    git submodule init
-    git submodule update
-    \# if you don't have pyflakes installed:
-    cd vim/bundle/pyflakes-vim
-    git submodule init
-    git submodule update
+Install pyflakes & pep8 (using pip), then symlink from wherever they're installed (e.g. site-packages or /usr/local/bin/share/python) to somewhere on your path (like /usr/local/bin)
 
-Install pep8 (using pip), then symlink from wherever pep8 installed (site-packages or dist-packages) to somewhere on your path like /usr/local/bin/pep8
-
-Taglist plugin requires a different version of ctags (non-emacs).  Compile the source and put it on your path above the default ctags for it to work
+You need a different version of ctags than the osx default, install it with homebrew
 
 ###Unversioned plugin notes:
 Pathogen is from [https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim](https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim)
