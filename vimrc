@@ -50,12 +50,9 @@ set equalalways " Multiple windows, when created, are equal in size
 
 set mouse=a  " enable scroll with mouse wheel
 
-"set up a dece statusline
+"set up a g statusline
 set statusline=%F%m%r%h%w\ \ \ [TYPE=%Y]\ \ \ [POS=%l,%v][%p%%]" [FORMAT=%{&ff}] %{strftime(\"%d/%m/%y\ -\ %H:%M\")} %F%m%r%h%w
 set laststatus=2 "show even if window not split
-
-" Professor VIM says '87% of users prefer jj over esc', jj abrams disagrees
-" imap jj <Esc>
 
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
@@ -69,32 +66,32 @@ let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
 autocmd FileType python setlocal list
 autocmd FileType python SoftTab 4
 autocmd FileType python nmap ,8 :call Pep8()<CR>
-" autocmd FileType python nmap ,8 :call Flake8()<CR>
+" prevent python comments from going to beginning of line
+"autocmd BufRead *.py inoremap # X<c-h>#
+
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html SoftTab 4 
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css SoftTab 4
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
-" SnipMate? Not using it, but maybe someday i will
+" SnipMate? Not using it, maybe someday i will
 "autocmd FileType python set ft=python.django " For SnipMate
 "autocmd FileType html set ft=html.django_template " For SnipMate
 
 " Custom filetypes
 au BufRead,BufNewFile {Capfile,Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru,.caprc,.irbrc,irb_tempfile*} set ft=ruby
 au BufRead,BufNewFile {*.less,*.sass} set ft=css
-au BufRead,BufNewFile *.us set ft=html
+au BufRead,BufNewFile *.us set ft=html "our underscore.js html templates
 
 " fix backspace in vim 7
 :set backspace=indent,eol,start
 "nmap <buffer> <CR> gf
 "nmap <buffer> <C-S-y> <Esc>yy<Esc>:bd<CR>:edit @"<CR>
 
-" popout split buffer hack
-" map <C-S-p>  <Esc>:hide<CR>:blast<CR>
-
-nmap ,bs :ConqueTermSplit bash<CR>
-nmap ,bv :ConqueTermVSplit bash<CR>
+" ConqueTerm, I stopped using it
+" nmap ,bs :ConqueTermSplit bash<CR>
+" nmap ,bv :ConqueTermVSplit bash<CR>
 
 """ Clipboard
 " copy all to clipboard
@@ -166,10 +163,6 @@ vnoremap <silent><C-Right> <Esc>`>:<C-U>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:c
 "command! -nargs=+ -complete=file Ack call AckGrep(<q-args>)
 "map <leader>a :Ack<space>
 
-" prevent comments from going to beginning of line
-"autocmd BufRead *.py inoremap # X<c-h>#
-
-
 "##################################################
 " markdown
 "##################################################
@@ -177,91 +170,29 @@ vnoremap <silent><C-Right> <Esc>`>:<C-U>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:c
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
  augroup END
 
-"##################################################
-" via http://www.vim.org/scripts/script.php?script_id=30
-"##################################################
-
-"##################################################
-" Python block commenting shortcuts
-"##################################################
-map  ,cm   :call PythonCommentSelection()<CR>
-vmap ,cm   :call PythonCommentSelection()<CR>
-map  ,cu   :call PythonUncommentSelection()<CR>
-vmap ,cu   :call PythonUncommentSelection()<CR>
-" Comment out selected lines
-" commentString is inserted in non-empty lines, and should be aligned with
-" the block
-function! PythonCommentSelection()  range
-  let commentString = "#"
-  let cl = a:firstline
-  let ind = 1000    " I hope nobody use so long lines! :)
-
-  " Look for smallest indent
-  while (cl <= a:lastline)
-    if strlen(getline(cl))
-      let cind = indent(cl)
-      let ind = ((ind < cind) ? ind : cind)
-    endif
-    let cl = cl + 1
-  endwhile
-  if (ind == 1000)
-    let ind = 1
-  else
-    let ind = ind + 1
-  endif
-
-  let cl = a:firstline
-  execute ":".cl
-  " Insert commentString in each non-empty line, in column ind
-  while (cl <= a:lastline)
-    if strlen(getline(cl))
-      execute "normal ".ind."|i".commentString
-    endif
-    execute "normal \<Down>"
-    let cl = cl + 1
-  endwhile
-endfunction
-
-" Uncomment selected lines
-function! PythonUncommentSelection()  range
-  " commentString could be different than the one from CommentSelection()
-  " For example, this could be "# \\="
-  let commentString = "#"
-  let cl = a:firstline
-  while (cl <= a:lastline)
-    let ul = substitute(getline(cl),
-             \"\\(\\s*\\)".commentString."\\(.*\\)$", "\\1\\2", "")
-    call setline(cl, ul)
-    let cl = cl + 1
-  endwhile
-endfunction
-
 "############################################
 "######## My own customizations (DC) ########
 "############################################
-"Make switching btwn split buffers easier
+"Make switching btwn split buffers one less keystroke
 nmap <C-h> <C-w>h
 nmap <C-l> <C-w>l
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
-"Nicer buffer window sizing
-map = <C-w>+
-map - <C-w>-
-map + <C-w>>
-map _ <C-w><
 
-" Full on IDE style (aka Workhorse)
+" Open useful sidebars (taglist, nerdtree)
 nnoremap ,w :TlistToggle<CR>
 nnoremap ,W :TlistToggle<CR> :NERDTreeToggle<CR>
 
-" use kortina's color scheme
-" colorscheme ir_black_kortina
+" Taglist options
+let g:Tlist_Ctags_Cmd = '/usr/local/bin/ctags' " tell taglist where exuberant ctags is
+let Tlist_Use_Right_Window = 1
+let Tlist_WinWidth = 45
+
 
 " pyflakes-vim customizations
-highlight SpellBad term=undercurl gui=undercurl guisp=Orange
+" highlight SpellBad term=undercurl gui=undercurl guisp=Orange
 
 "this function maps Alt-down and Alt-Up to move other window
-
 function! ScrollOtherWindow(dir)
     if a:dir == "down"
         let move = "\<C-E>"
@@ -273,7 +204,10 @@ endfunction
 "map ,y :call ScrollOtherWindow("down")<CR>
 "map <C-E> :call ScrollOtherWindow("up")<CR>
 
-" ---- Syntastic syntax checking ----
+
+"""
+""" Syntastic syntax checking 
+"""
 " status line
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -290,10 +224,6 @@ let g:syntastic_mode_map = { 'mode': 'active',
 " key shortcuts
 nmap ,e :SyntasticCheck<CR> :Errors<CR>
 nmap ,r :edit<CR>  " reload current file
-
-let g:Tlist_Ctags_Cmd = '/usr/local/bin/ctags' " tell taglist where exuberant ctags is
-let Tlist_Use_Right_Window = 1
-let Tlist_WinWidth = 45
 
 "folding settings
 set foldmethod=indent   "fold based on indent
