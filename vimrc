@@ -57,13 +57,6 @@ set laststatus=2 "show even if window not split
 " Professor VIM says '87% of users prefer jj over esc', jj abrams disagrees
 " imap jj <Esc>
 
-" to set cursorline/column when going to a new buffer (so you know where you are)
-" autocmd WinEnter * setlocal cursorline  " always leave it on for now
-" autocmd WinLeave * setlocal nocursorline
-" autocmd WinEnter * setlocal cursorcolumn
-" autocmd WinLeave * setlocal nocursorcolumn
-" autocmd BufRead,BufNewFile,BufDelete * :syntax on
-
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
@@ -83,7 +76,7 @@ autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css SoftTab 4
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
-" SnipMate?? Don't know what it is
+" SnipMate? Not using it, but maybe someday i will
 "autocmd FileType python set ft=python.django " For SnipMate
 "autocmd FileType html set ft=html.django_template " For SnipMate
 
