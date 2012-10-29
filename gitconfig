@@ -27,3 +27,5 @@
 	up = pull --rebase
 [push]
 	default = simple
+[merge]
+	defaultToUpstream = true
