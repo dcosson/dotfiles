@@ -13,6 +13,10 @@ PROMPT_COMMAND='history -a'
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
+###
+### Prompt
+###
+
 # Show current git/svn project info in prompt
 parse_git_dirty() {
   [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo "*"
@@ -32,9 +36,12 @@ txtpurple='\[\033[0;35m\]'
 txtwhite='\[\033[0;37m\]'
 txtend='\[\033[0m\]'
 
-# prompt
+
+SMILEY_IF_SUCCESS="\`if [ \$? = 0 ]; then echo -e '${txtgreen}:)${txtend}'; else echo -e '${txtred}:(${txtend}'; fi\`"
+SUNNY_IF_SUCCESS="\`if [ \$? = 0 ]; then echo -e '${txtgreen}☀${txtend}'; else echo -e '${txtblue}☁${txtend}'; fi\`"
+
 PS1="\n\
-${txtgreen}\u$DIM${txtend} ${txtwhite}@${txtend} ${txtorange}\h${txtend}
+${txtgreen}\u$DIM${txtend} ${txtwhite}@${txtend} ${txtorange}\h${txtend} $SUNNY_IF_SUCCESS
 ${txtpurple}\$PWD${txtend} ${txtwhite}\$(parse_git_branch)\$(parse_svn_branch)\$ "  # don't end color, I want my text white
 export PS1
 
