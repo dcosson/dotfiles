@@ -94,6 +94,10 @@ alias guard="bundle exec guard"
 pyoutline() { egrep --color=auto '^[\t ]*class|^[\t ]*def|^[\t ]*###.+$|^[\t ]*""".+$' $1; } # apparently \s doesn't work so I use tab or space
 wcr() { wc -l `find . -type f | egrep "$1$"`; } # recursive word count, pass in the file extension
 
+# toggle show/hide hidden files in Finder
+alias showhidefileson='defaults write com.apple.Finder AppleShowAllFiles YES; killall -HUP Finder'
+alias showhidefilesoff='defaults write com.apple.Finder AppleShowAllFiles NO; killall -HUP Finder'
+
 # create an empty new bash script
 quickscript() { touch $1; chmod a+x $1; echo -e "#!/bin/bash\n\n" > $1; vim $1; }
 
