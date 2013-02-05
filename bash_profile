@@ -93,6 +93,8 @@ alias guard="bundle exec guard"
 # Get a rough outline of a python file - show class & function declarations, block comments, first line of docstrings
 pyoutline() { egrep --color=auto '^[\t ]*class|^[\t ]*def|^[\t ]*###.+$|^[\t ]*""".+$' $1; } # apparently \s doesn't work so I use tab or space
 wcr() { wc -l `find . -type f | egrep "$1$"`; } # recursive word count, pass in the file extension
+# reasonably good site for checking your ip address
+alias ip='curl icanhazip.com'
 
 # toggle show/hide hidden files in Finder
 alias showhidefileson='defaults write com.apple.Finder AppleShowAllFiles YES; killall -HUP Finder'

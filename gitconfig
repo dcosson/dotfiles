@@ -16,6 +16,7 @@
 	dwc = diff -w -M --color-words
 	lg = log
 	ll = log -p
+        po = push -u origin HEAD
 	rb = rebase
 	fix = rebase -i origin/master
 	rba = rebase --abort

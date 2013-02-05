@@ -59,15 +59,13 @@ let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
 
-" Python (no smart indent, set up the built-in omni complete and pydiction)
-autocmd FileType python set nosmartindent
+" Python
+autocmd FileType python set nosmartindent list shiftwidth=4 softtabstop=4
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
-autocmd FileType python setlocal list
-autocmd FileType python SoftTab 4
 autocmd FileType python nmap ,8 :call Pep8()<CR>
-" prevent python comments from going to beginning of line
-"autocmd BufRead *.py inoremap # X<c-h>#
+" Ruby
+autocmd FileType ruby set expandtab shiftwidth=2 softtabstop=2
 
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html SoftTab 4 
@@ -83,6 +81,9 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 au BufRead,BufNewFile {Capfile,Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru,.caprc,.irbrc,irb_tempfile*} set ft=ruby
 au BufRead,BufNewFile {*.less,*.sass} set ft=css
 au BufRead,BufNewFile *.us set ft=html "our underscore.js html templates
+
+" don't show binary files in list of files to open
+set wildignore+=*.pyc
 
 " fix backspace in vim 7
 :set backspace=indent,eol,start
