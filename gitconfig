@@ -26,6 +26,7 @@
 	sup = "submodule foreach 'git co master; git up'"
 	tree = log --graph --decorate --pretty=oneline --abbrev-commit --all
 	up = pull --rebase
+	everything = log --pretty=format: --name-only --diff-filter=A
 [push]
 	default = simple
 [merge]
