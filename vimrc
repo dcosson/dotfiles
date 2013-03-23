@@ -5,15 +5,13 @@ call pathogen#infect()
 call pathogen#helptags() " generate helptags for everything in 'runtimepath'
 filetype plugin indent on
 filetype on
-filetype plugin on
-filetype indent on
 syntax enable
 " let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-let g:solarized_contrast='high'
-let g:solarized_visibility='normal'
-set background=dark
-colorscheme Tomorrow-Night
+" let g:solarized_termtrans=1
+" let g:solarized_contrast='high'
+" let g:solarized_visibility='normal'
+" set background=dark
+colorscheme tomorrow-night-dcosson
 
 "Simple switching between hard tabs and spaces
 command! -nargs=* HardTab setlocal noexpandtab shiftwidth=4
