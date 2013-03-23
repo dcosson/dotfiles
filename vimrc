@@ -11,6 +11,8 @@ syntax enable
 " let g:solarized_contrast='high'
 " let g:solarized_visibility='normal'
 " set background=dark
+" colorscheme solarized
+" colorscheme Tomorrow-Night
 colorscheme tomorrow-night-dcosson
 
 "Simple switching between hard tabs and spaces
@@ -44,6 +46,7 @@ set shellcmdflag=-lic  " run commands in login shell, i.e. with .bash_profile so
 
 " Powerline status line
 let g:Powerline_symbols = 'fancy'
+let g:Powerline_colorscheme = 'default'
 set t_Co=256
 set laststatus=2 "show even if window not split
 " set statusline=%F%m%r%h%w\ \ \ [TYPE=%Y]\ \ \ [POS=%l,%v][%p%%]" [FORMAT=%{&ff}] %{strftime(\"%d/%m/%y\ -\ %H:%M\")} %F%m%r%h%w
@@ -52,6 +55,13 @@ let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
+
+" cursorline only in active buffer
+augroup CursorLine
+  au!
+  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * setlocal nocursorline
+augroup END
 
 " Python
 autocmd FileType python set nosmartindent list shiftwidth=4 softtabstop=4
