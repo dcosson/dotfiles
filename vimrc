@@ -111,7 +111,7 @@ nmap ,u "zyy"zp:.s/./-/g<CR>:let @/ = ""<CR>
 nmap ,dit dt<dT>
 nmap ,cit dt<cT>
 
-nmap ,t <Leader>t
+nmap ,t :CtrlP<CR>
 
 "clear the fucking search buffer, not just remove the highlight
 map \c :let @/ = ""<CR>
@@ -138,10 +138,10 @@ endif
 
 " Open useful sidebars (taglist, nerdtree)
 nnoremap ,w :TlistToggle<CR>
-nnoremap ,W :TlistToggle<CR> :NERDTreeToggle<CR>
+nnoremap ,W :NERDTreeToggle<CR>
 
 " Taglist options
-let g:Tlist_Ctags_Cmd = '/usr/local/bin/ctags' " tell taglist where exuberant ctags is
+let g:Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
 let Tlist_Use_Right_Window = 1
 let Tlist_WinWidth = 45
 
@@ -168,4 +168,4 @@ nmap ,r :edit<CR>  " reload current file
 "folding settings
 " set foldmethod=indent   "fold based on indent
 " set foldnestmax=10      "deepest fold is 10 levels
-" set foldlevel=1         "this is just what i use
+" set foldlevel=1
