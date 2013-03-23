@@ -13,7 +13,7 @@ let g:solarized_termtrans=1
 let g:solarized_contrast='high'
 let g:solarized_visibility='normal'
 set background=dark
-colorscheme solarized
+colorscheme Tomorrow-Night
 
 "Simple switching between hard tabs and spaces
 command! -nargs=* HardTab setlocal noexpandtab shiftwidth=4
