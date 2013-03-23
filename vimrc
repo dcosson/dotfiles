@@ -43,7 +43,6 @@ set mouse=a  " enable scroll with mouse wheel
 set shellcmdflag=-lic  " run commands in login shell, i.e. with .bash_profile sourced
 
 " Powerline status line
-set guifont=Monaco\ for\ Powerline
 let g:Powerline_symbols = 'fancy'
 set t_Co=256
 set laststatus=2 "show even if window not split
