@@ -2,7 +2,7 @@
 
 My configuration files for vim, bash, and whatever else it is I use on the computer these days.  I use them both on OSX locally and on linux servers (using the bashrc\_linux file as .bashrc, without .bash\_profile)
 
-
+At the moment it's configuration for bash, vim, git, tmux & screen, and some miscellaneous files (some nice programming fonts, short scripts I've found useful, etc).
 
 ### Usage
 
