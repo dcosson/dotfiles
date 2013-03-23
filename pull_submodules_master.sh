@@ -6,8 +6,8 @@ cd `dirname $0`/vim/bundle
 for dir in * ; do
   if [ -d ${dir} ] ; then
       cd ${dir}
-      git fetch
-      git merge origin/master
+      git checkout master
+      git pull
       cd ..
   fi
 done
