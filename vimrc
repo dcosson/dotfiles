@@ -15,11 +15,6 @@ let g:solarized_visibility='normal'
 set background=dark
 colorscheme solarized
 
-" good example vimrc (and well documented!):
-" http://github.com/twerth/dotfiles/blob/master/etc/vim/vimrc
-
-set nocompatible
-
 "Simple switching between hard tabs and spaces
 command! -nargs=* HardTab setlocal noexpandtab shiftwidth=4
 command! -nargs=? SoftTab setlocal expandtab tabstop=<args> shiftwidth=<args> softtabstop=<args>
@@ -34,8 +29,6 @@ set hlsearch
 set smartcase
 set cursorline
 " set cursorcolumn
-" set list " turn invisibles on by default
-" show in title bar
 set title
 set ruler
 set showmode
@@ -47,13 +40,16 @@ set grepprg=ack
 set equalalways " Multiple windows, when created, are equal in size
 "set splitbelow splitright"
 
-set mouse=a  " enable scroll with mouse wheel
+" set mouse=a  " enable scroll with mouse wheel
 
 set shellcmdflag=-lic  " run commands in login shell, i.e. with .bash_profile sourced
 
-"set up a g statusline
-set statusline=%F%m%r%h%w\ \ \ [TYPE=%Y]\ \ \ [POS=%l,%v][%p%%]" [FORMAT=%{&ff}] %{strftime(\"%d/%m/%y\ -\ %H:%M\")} %F%m%r%h%w
+" Powerline status line
+set guifont=Monaco\ for\ Powerline
+let g:Powerline_symbols = 'fancy'
+set t_Co=256
 set laststatus=2 "show even if window not split
+" set statusline=%F%m%r%h%w\ \ \ [TYPE=%Y]\ \ \ [POS=%l,%v][%p%%]" [FORMAT=%{&ff}] %{strftime(\"%d/%m/%y\ -\ %H:%M\")} %F%m%r%h%w
 
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
@@ -149,9 +145,9 @@ let Tlist_WinWidth = 45
 """ Syntastic syntax checking 
 """
 " status line
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 " let g:syntastic_disable=['py']
 let g:syntastic_enable_signs=0 "sign markings (at beginning of line, before line numbers)
 let g:syntastic_enable_highlighting=2
