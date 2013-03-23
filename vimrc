@@ -36,9 +36,9 @@ set tags=./tags;
 set grepprg=ack
 
 set equalalways " Multiple windows, when created, are equal in size
-"set splitbelow splitright"
+set splitbelow splitright
 
-" set mouse=a  " enable scroll with mouse wheel
+set mouse=a  " enable scroll with mouse wheel
 
 set shellcmdflag=-lic  " run commands in login shell, i.e. with .bash_profile sourced
 
