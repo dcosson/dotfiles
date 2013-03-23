@@ -1,22 +1,31 @@
-##My configuration files for vim, bash, and whatever else it is I use on the computer these days
+## Danny Cosson Dotfiles
 
-###Vim:
-Make sure vim is compiled with ruby and python support (and you probably also want clipboard, --with-features=huge, etc).
+My configuration files for vim, bash, and whatever else it is I use on the computer these days.  I use both on OSX locally and on linux servers (using the bashrc\_linux file as .bashrc, without .bash\_profile)
 
-To use these dotfiles:
 
-    # clone the repo
-    cd ~/dotfiles
-    git submodule update --init
-    # symlink or copy the files you want to the right location
-    ln -s ~/dotfiles/vimrc ~/.vimrc
-    ln -s ~/dotfiles/vim ~/.vim
 
-Install pyflakes & pep8 (using pip), then symlink from wherever they're installed (e.g. site-packages or /usr/local/bin/share/python) to somewhere on your path (like /usr/local/bin)
+### Usage
 
-You need a different version of ctags than the osx default, install it with homebrew
+`./install.sh`
+
+It inits git submodules and symlinks the dotfiles into place. If you have existing dotfiles where they need to go, those will be moved to an `~/old_dotfiles` directory.
+
+
+
+### Dependencies
+
+- pypi packages `pyflakes` & `pep8` for python formatting. Make sure they're on your path (if you use homebrew python, install with pip and you'll be fine).
+
+- exuberant ctags (not the osx builtin ctags), install it with `brew install ctags`
+
+- vim needs ruby and python support (and you probably also want clipboard, --with-features=huge, etc). See [this gist] (https://gist.github.com/dcosson/3686437) for tips compiling on osx. MacVim probably works too.
+
+
 
 ###Unversioned plugin notes:
+
 Pathogen is from [https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim](https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim)
 
 python\_pep8.vim is version 1.1 from [http://www.vim.org/scripts/script.php?script_id=3160](http://www.vim.org/scripts/script.php?script_id=3160)
+
+tommorrow-theme colorscheme is from [https://github.com/chriskempson/tomorrow-theme](https://github.com/chriskempson/tomorrow-theme), I made a few customizations to tomorrow-night-dcosson to make it darker
