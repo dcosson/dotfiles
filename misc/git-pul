@@ -1,0 +1,16 @@
+#!/bin/bash
+
+### Plays a 2 second clip of David Bowie Changes when there are git changes
+### Put it on path, e.g. /usr/local/bin, it'll become a git command `git pul`
+
+rand_int=$((0x$(openssl rand -hex 3$)))
+rand_small_int=$((rand_int % 3 + 1))
+song=~/dotfiles/misc/audio-clips/changes${rand_small_int}.mp3
+
+git_output=`git pull 2>&1`
+echo -e "${git_output}"
+
+if [ "$git_output" != "Already up-to-date." ]
+then 
+    /usr/bin/afplay -v 0.4 $song &
+fi
