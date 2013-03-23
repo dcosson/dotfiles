@@ -5,6 +5,8 @@
 # When a symlink already exists, replace it
 
 declare -a dotfile_whitelist=(
+  .bash_profile\
+  .bash_includes\
   .gitconfig\
   .gitignore\
   .screenrc\
