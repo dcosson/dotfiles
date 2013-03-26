@@ -10,6 +10,8 @@ At the moment it's configuration for bash, vim, git, tmux & screen, and some mis
 
 It inits git submodules and symlinks the dotfiles into place. If you have existing dotfiles where they need to go, those will be moved to an `~/old_dotfiles` directory.
 
+For Vim powerline to work, you have to install a patched fonts.  Open one of the `*-Powerline.ttf` fonts in `misc/fonts/`, click install, and set that as your font in iterm or terminal or whatever.
+
 
 
 ### Dependencies
