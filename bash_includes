@@ -59,6 +59,7 @@ fi
 ### useful aliases
 ###
 alias lsl='ls -G -lh --color=auto'
+lsp() { ls -lh $1 | egrep -v '.*.pyc$'; }
 alias grep='grep -i --color=auto'
 alias gg='git grep -n --color --heading --break'
 alias .b='source ~/.bashrc && source ~/.bash_profile'

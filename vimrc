@@ -42,8 +42,6 @@ set splitbelow splitright
 
 set mouse=a  " enable scroll with mouse wheel
 
-set shellcmdflag=-lic  " run commands in login shell, i.e. with .bash_profile sourced
-
 " Powerline status line
 let g:Powerline_symbols = 'fancy'
 let g:Powerline_colorscheme = 'default'
@@ -113,9 +111,7 @@ nmap ,u "zyy"zp:.s/./-/g<CR>:let @/ = ""<CR>
 " delete inner xml tag
 nmap ,dit dt<dT>
 nmap ,cit dt<cT>
-
-nmap ,t :CtrlP<CR>
-
+"
 "clear the fucking search buffer, not just remove the highlight
 map \c :let @/ = ""<CR>
 
@@ -166,7 +162,7 @@ let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'passive_filetypes': ['txt', 'go'] }
 " key shortcuts
 nmap ,e :SyntasticCheck<CR> :Errors<CR>
-nmap ,r :edit<CR>  " reload current file
+nmap ,R :!!<CR>
 
 "folding settings
 " set foldmethod=indent   "fold based on indent
