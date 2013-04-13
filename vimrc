@@ -161,6 +161,7 @@ let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': [],
                            \ 'passive_filetypes': ['txt', 'go'] }
 " key shortcuts
+nmap <Ctrl>P ::CtrlPClearCache<CR>
 nmap ,e :SyntasticCheck<CR> :Errors<CR>
 nmap ,R :!!<CR>
 

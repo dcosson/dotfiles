@@ -9,18 +9,13 @@
 	remote = origin
 	merge = refs/heads/master
 [alias]
-	br = branch
+        br = branch
 	ci = commit -a
 	co = checkout
-	df = diff
 	dwc = diff -w -M --color-words
-	lg = log
-	ll = log -p
-        po = push -u origin HEAD
-	rb = rebase
 	fix = rebase -i origin/master
-	rba = rebase --abort
-	rbc = rebase --continue
+	branch-ages = for-each-ref --format='%(committerdate:relative)%09%(refname:short)' --sort='-committerdate' refs/heads
+	branch-ages-origin = for-each-ref --format='%(committerdate:relative)%09%(refname:short)' --sort='-committerdate' refs/remotes/origin
 	re = remote
 	st = status
 	sup = "submodule foreach 'git co master; git up'"
