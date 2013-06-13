@@ -14,8 +14,9 @@
 	co = checkout
 	dwc = diff -w -M --color-words
 	fix = rebase -i origin/master
-	branch-ages = for-each-ref --format='%(committerdate:relative)%09%(refname:short)' --sort='-committerdate' refs/heads
-	branch-ages-origin = for-each-ref --format='%(committerdate:relative)%09%(refname:short)' --sort='-committerdate' refs/remotes/origin
+        new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
+	recent-branches = --paginate for-each-ref --format='%(committerdate:relative)%09%(refname:short)' --sort='-committerdate' refs/heads
+	recent-branches-origin = --paginate for-each-ref --format='%(committerdate:relative)%09%(refname:short)' --sort='-committerdate' refs/remotes/origin
 	re = remote
 	st = status
 	sup = "submodule foreach 'git co master; git up'"
