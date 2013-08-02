@@ -16,7 +16,7 @@ export PATH=/usr/local/bin:$PATH:/usr/local/sbin:/usr/local/mysql/bin:/usr/local
 
 # VirtualEnvWrapper
 export WORKON_HOME=~/virtualenvs
-source /usr/local/share/python/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper.sh
 
 # brew bash completion
 if [ -f `brew --prefix`/etc/bash_completion ]; then
