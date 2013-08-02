@@ -5,6 +5,8 @@
 	excludesfile = /Users/dcosson/.gitignore
 [rerere]
 	enabled = 1
+[remote "origin"]
+	push = HEAD
 [branch "master"]
 	remote = origin
 	merge = refs/heads/master
