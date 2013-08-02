@@ -90,7 +90,11 @@ au BufRead,BufNewFile {*.less,*.sass} set ft=css
 au BufRead,BufNewFile *.us set ft=html "our underscore.js html templates
 
 " don't show binary files in list of files to open
-set wildignore+=*.pyc
+set wildignore+=*.pyc,node_modules/**
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.git|node_modules)$',
+  \ 'file': '\v\.(exe|so|dll|pyc)$',
+  \ }
 let NERDTreeIgnore=[ '\.pyc$', '\.pyo$' ]
 
 " fix backspace in vim 7
