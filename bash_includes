@@ -29,7 +29,7 @@ parse_svn_branch() {
   svn info 2> /dev/null | grep URL | sed -e "s/.*\/\(.*\)$/(\1)/"
 }
 gemset_info() {
-  rvm info | egrep '^ruby' | grep '@' | sed -e 's/^\(.*\)@\(.*\):$/(@\2) /'
+  [[ -s "$HOME/.rvm/scripts/rvm" ]] && rvm info | egrep '^ruby' | grep '@' | sed -e 's/^\(.*\)@\(.*\):$/(@\2) /'
 }
 # set up colors
 txtblack='\[\033[0;30m\]'
