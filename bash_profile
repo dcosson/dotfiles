@@ -23,11 +23,11 @@ if [ -f `brew --prefix`/etc/bash_completion ]; then
 . `brew --prefix`/etc/bash_completion
 fi
 
-# EC2 Command Line Tools
-export JAVA_HOME="`/usr/libexec/java_home -v 1.6`"
-export EC2_PRIVATE_KEY="$(/bin/ls $HOME/.ec2/pk-*.pem)"
-export EC2_CERT="$(/bin/ls $HOME/.ec2/cert-*.pem)"
-export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
+# EC2 Command Line Tools - not really using recently
+# export JAVA_HOME="`/usr/libexec/java_home -v 1.6`"
+# export EC2_PRIVATE_KEY="$(/bin/ls $HOME/.ec2/pk-*.pem)"
+# export EC2_CERT="$(/bin/ls $HOME/.ec2/cert-*.pem)"
+# export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
 
 
 ### OSX-specific aliases
