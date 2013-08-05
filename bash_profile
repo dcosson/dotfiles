@@ -46,3 +46,5 @@ fi
 if [ -f ~/.bash_profile_venmo ] ; then
     source ~/.bash_profile_venmo
 fi
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
