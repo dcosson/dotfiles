@@ -12,7 +12,7 @@ HISTSIZE=100000
 ###
 # the classic MySQL library path fix for OSX  (un-comment if installing mysql)
 # export LD_LIBRARY_PATH=/usr/local/mysql-5.5.19-osx10.6-x86_64/lib
-export PATH=/usr/local/bin:$PATH:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/share/python/:/usr/local/share/npm/bin
+export PATH=/usr/local/bin:$PATH:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/share/python/:/usr/local/share/npm/bin:~/.ec2/bin
 
 # VirtualEnvWrapper
 export WORKON_HOME=~/virtualenvs
@@ -21,6 +21,11 @@ source /usr/local/bin/virtualenvwrapper.sh
 # brew bash completion
 if [ -f `brew --prefix`/etc/bash_completion ]; then
 . `brew --prefix`/etc/bash_completion
+fi
+
+# aws completion
+if [ -f `brew --prefix`/bin/aws_completer ]; then
+complete -C aws_completer aws
 fi
 
 # EC2 Command Line Tools - not really using recently
