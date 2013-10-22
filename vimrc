@@ -173,3 +173,11 @@ nmap ,R :!!<CR>
 " set foldmethod=indent   "fold based on indent
 " set foldnestmax=10      "deepest fold is 10 levels
 " set foldlevel=1
+
+
+
+" --- Testing out tslime.vim
+vmap <C-c><C-c> <Plug>SendSelectionToTmux
+nmap <C-c><C-c> <Plug>NormalModeSendToTmux
+nmap <C-c>r <Plug>SetTmuxVars
+
