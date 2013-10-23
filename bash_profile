@@ -12,7 +12,7 @@ HISTSIZE=100000
 ###
 # the classic MySQL library path fix for OSX  (un-comment if installing mysql)
 # export LD_LIBRARY_PATH=/usr/local/mysql-5.5.19-osx10.6-x86_64/lib
-export PATH=/usr/local/bin:$PATH:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/share/python/:/usr/local/share/npm/bin:~/.ec2/bin
+export PATH=/usr/local/bin:$PATH:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/share/npm/bin:~/.ec2/bin
 
 # VirtualEnvWrapper
 export WORKON_HOME=~/virtualenvs
