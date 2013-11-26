@@ -8,7 +8,6 @@
 [remote "origin"]
 	push = HEAD
 [branch "master"]
-	remote = origin
 	merge = refs/heads/master
 [alias]
         br = branch
@@ -19,7 +18,7 @@
         new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
 	recent-branches = --paginate for-each-ref --format='%(committerdate:relative)%09%(refname:short)' --sort='-committerdate' refs/heads
 	recent-branches-origin = --paginate for-each-ref --format='%(committerdate:relative)%09%(refname:short)' --sort='-committerdate' refs/remotes/origin
-	re = remote
+	re = remote -v
 	st = status
 	sup = "submodule foreach 'git co master; git up'"
 	tree = log --graph --decorate --pretty=oneline --abbrev-commit --all

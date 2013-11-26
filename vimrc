@@ -176,8 +176,13 @@ nmap ,R :!!<CR>
 
 
 
-" --- Testing out tslime.vim
-vmap <C-c><C-c> <Plug>SendSelectionToTmux
-nmap <C-c><C-c> <Plug>NormalModeSendToTmux
-nmap <C-c>r <Plug>SetTmuxVars
+" --- Vimux commands to run tests
+let g:vimux_nose_setup_cmd="vagrant ssh; if [ -d /ebs/appvenmo/venmo_tests ] ; then cd /ebs/appvenmo; else cd /vagrant; fi"
+map ,rs :call VimuxRunNoseSetup()<CR>
+map ,ri :call VimuxInspectRunner()<CR>
+map ,rc :call VimuxCloseRunner()<CR>
 
+map ,ra :call VimuxRunNoseAll()<CR>
+map ,rF :call VimuxRunNoseFile()<CR>
+map ,rf :call VimuxRunNoseLine()<CR>
+map ,rr :call VimuxRunLastCommand()<CR>
