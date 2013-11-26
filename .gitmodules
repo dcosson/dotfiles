@@ -46,6 +46,3 @@
 [submodule "vim/bundle/vimux"]
 	path = vim/bundle/vimux
 	url = https://github.com/benmills/vimux.git
-[submodule "vim/bundle/vimux-nose-test"]
-	path = vim/bundle/vimux-nose-test
-	url = https://github.com/pitluga/vimux-nose-test.git
