@@ -13,47 +13,45 @@ PROMPT_COMMAND='history -a'
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-
 ###
 ### Prompt
 ###
-# Show current git/svn project info in prompt
+# Show current git project info
 parse_git_dirty() {
   [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo "*"
 }
 parse_git_branch() {
   git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/(\1$(parse_git_dirty))/"
 }
-parse_svn_branch() {
-  svn info 2> /dev/null | grep URL | sed -e "s/.*\/\(.*\)$/(\1)/"
+function __prompt_command() {
+  local LAST_EXIT_CODE="$?"
+
+  ### Define Colors
+  txtblack='\[\033[0;30m\]'
+  txtred='\[\033[0;31m\]'
+  txtgreen='\[\033[0;32m\]'
+  txtorange='\[\033[0;33m\]'
+  txtblue='\[\033[0;34m\]'
+  txtpurple='\[\033[0;35m\]'
+  txtwhite='\[\033[0;37m\]'
+  txtend='\[\033[0m\]'
+
+  ### Define PS1
+  # extra vertical space 
+  PS1="\n"
+  # username @ hostname, then indicate previous exit code
+  PS1+="${txtgreen}\u$DIM${txtend} ${txtwhite}@${txtend} ${txtorange}\h${txtend}"
+  if [ $LAST_EXIT_CODE = 0 ]
+  then
+    PS1+=" ${txtgreen}☀${txtend}"
+  else
+    PS1+=" ${txtblue}☁${txtend}"
+  fi
+  PS1+="\n"
+  # pwd, git branch and prompt
+  PS1+="${txtpurple}\$PWD${txtend} ${txtwhite}\$(parse_git_branch)$ "
 }
-gemset_info() {
-  [[ -s "$HOME/.rvm/scripts/rvm" ]] && rvm info | egrep '^ruby' | grep '@' | sed -e 's/^\(.*\)@\(.*\):$/(@\2) /'
-}
-# set up colors
-txtblack='\[\033[0;30m\]'
-txtred='\[\033[0;31m\]'
-txtgreen='\[\033[0;32m\]'
-txtorange='\[\033[0;33m\]'
-txtblue='\[\033[0;34m\]'
-txtpurple='\[\033[0;35m\]'
-txtwhite='\[\033[0;37m\]'
-txtend='\[\033[0m\]'
-
-SMILEY_IF_SUCCESS="\`if [ \$? = 0 ]; then echo -e '${txtgreen}:)${txtend}'; else echo -e '${txtred}:(${txtend}'; fi\`"
-SUNNY_IF_SUCCESS="\`if [ \$? = 0 ]; then echo -e '${txtgreen}☀${txtend}'; else echo -e '${txtblue}☁${txtend}'; fi\`"
-
-PS1="\n\
-${txtgreen}\u$DIM${txtend} ${txtwhite}@${txtend} ${txtorange}\h${txtend} ${txtblue}\$(gemset_info)${txtend}$SUNNY_IF_SUCCESS
-${txtpurple}\$PWD${txtend} ${txtwhite}\$(parse_git_branch)\$(parse_svn_branch)\$ "  # don't end color, I want my text white
-export PS1
-
-# tmux 256 colors hack (wtf, tmux keeps ignoring the term setting in .tmux.conf and insists on setting TERM to "screen")
-if [ "$TERM" == "screen" ]
-then
-    export TERM="screen-256color"
-fi
+export PROMPT_COMMAND=__prompt_command
 
 ###
 ### useful aliases
@@ -63,6 +61,9 @@ lsp() { ls -lh $1 | egrep -v '.*.pyc$'; }
 alias grep='grep -i --color=auto'
 alias gg='git grep -n --color --heading --break'
 alias .b='source ~/.bashrc && source ~/.bash_profile'
+
+# tmux 256 colors hack
+alias tmux="TERM=screen-256color-bce tmux"
 
 # rename the current tab in terminal/iterm2
 rn() { export PROMPT_COMMAND="echo -ne \"\033]0;$1\007\""; }
