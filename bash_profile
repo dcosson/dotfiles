@@ -16,7 +16,10 @@ export PATH=/usr/local/bin:$PATH:/usr/local/sbin:/usr/local/mysql/bin:/usr/local
 
 # VirtualEnvWrapper
 export WORKON_HOME=~/virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
+if [ -f /usr/local/bin/virtualenvwrapper.sh ] ; then source /usr/local/bin/virtualenvwrapper.sh; else echo virtualenvwrapper not installed; fi
+
+# rbenv
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; else echo rbenv not installed; fi
 
 # brew bash completion
 if [ -f `brew --prefix`/etc/bash_completion ]; then
@@ -51,5 +54,3 @@ fi
 if [ -f ~/.bash_profile_venmo ] ; then
     source ~/.bash_profile_venmo
 fi
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
