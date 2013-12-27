@@ -23,6 +23,9 @@ parse_git_dirty() {
 parse_git_branch() {
   git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/(\1$(parse_git_dirty))/"
 }
+current_virtualenv() {
+  echo `basename $VIRTUAL_ENV 2>/dev/null`
+}
 function __prompt_command() {
   local LAST_EXIT_CODE="$?"
 
@@ -41,6 +44,12 @@ function __prompt_command() {
   PS1="\n"
   # username @ hostname, then indicate previous exit code
   PS1+="${txtgreen}\u$DIM${txtend} ${txtwhite}@${txtend} ${txtorange}\h${txtend}"
+  # python virtualenv, if we're in one
+  if [ -n "$(current_virtualenv)" ]
+  then
+    PS1+=" ${txtblue}($(current_virtualenv))${txtend}"
+  fi
+  # sun or rain based on last exit code
   if [ $LAST_EXIT_CODE = 0 ]
   then
     PS1+=" ${txtgreen}☀${txtend}"
