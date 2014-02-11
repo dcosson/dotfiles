@@ -68,6 +68,7 @@ let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
 autocmd FileType python nmap ,8 :call Pep8()<CR>
 " Ruby
 autocmd FileType ruby set expandtab shiftwidth=2 softtabstop=2
+autocmd FileType yaml set expandtab shiftwidth=2 softtabstop=2
 
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html SoftTab 2
@@ -178,6 +179,7 @@ nmap ,R :!!<CR>
 
 " --- Vimux commands to run tests
 let g:vimux_nose_setup_cmd="vagrant ssh; if [ -d /ebs/appvenmo/venmo_tests ] ; then cd /ebs/appvenmo; else cd /vagrant; fi"
+let g:vimux_nose_options="--nologcapture"
 map ,rs :call VimuxRunNoseSetup()<CR>
 map ,ri :call VimuxInspectRunner()<CR>
 map ,rc :call VimuxCloseRunner()<CR>
