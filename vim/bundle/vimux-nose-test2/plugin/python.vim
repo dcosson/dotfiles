@@ -10,13 +10,13 @@ function! VimuxRunNoseSetup()
 endfunction
 
 function! VimuxRunNoseAll()
-  call VimuxRunCommand("nosetests")
+  call VimuxRunCommand("nosetests " . g:vimux_nose_options)
 endfunction
 
 function! VimuxRunNoseFile()
-  call VimuxRunCommand("nosetests " . expand("%"))
+  call VimuxRunCommand("nosetests " . g:vimux_nose_options . " " . expand("%"))
 endfunction
 
 function! VimuxRunNoseLine()
-  call VimuxRunCommand("noseline " . expand("%") . " --line " . line("."))
+  call VimuxRunCommand("noseline " . g:vimux_nose_options . " " . expand("%") . " --line " . line("."))
 endfunction
