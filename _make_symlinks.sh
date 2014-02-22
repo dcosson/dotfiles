@@ -9,6 +9,7 @@ declare -a dotfile_whitelist=(
   .bash_includes\
   .gitconfig\
   .gitignore\
+  .inputrc\
   .screenrc\
   .tmux.conf\
   .vim\
