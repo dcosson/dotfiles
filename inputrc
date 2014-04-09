@@ -1,1 +1,7 @@
 set bell-style off
+
+set show-all-if-ambiguous on
+
+$if Bash
+  Space: magic-space
+$endif

@@ -21,6 +21,9 @@ if [ -f /usr/local/bin/virtualenvwrapper.sh ] ; then source /usr/local/bin/virtu
 # rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; else echo rbenv not installed; fi
 
+# pyenv
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; else echo pyenv not installed; fi
+
 # brew bash completion
 if [ -f `brew --prefix`/etc/bash_completion ]; then
 . `brew --prefix`/etc/bash_completion
