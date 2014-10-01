@@ -77,6 +77,7 @@ autocmd FileType html SoftTab 2
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css SoftTab 2
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType text set wrap linebreak
 
 augroup mkd
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
