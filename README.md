@@ -8,13 +8,17 @@ At the moment it's configuration for bash, vim, git, tmux & screen, and some mis
 
 NB: Note that in gitconfig, my user is set.  So you'll want to change that to you or all your commits will have my name.  Other than that, there's nothing personally tied to me.
 
-`git submodule update --init`  # a lot of the vim plugins are linked as submodules
+`git submodule update --init`
+
+A lot of the vim plugins are linked as submodules
 
 `make_symlinks.sh`
 
 This script symlinks the dotfiles into place. If you have existing dotfiles where they need to go, those will be moved to an `~/old_dotfiles` directory.
 
-`configure_osx_settings.sh` sets a bunch of system preferences defaults in osx that I like (faster key repeat, icons in menubar, many others).  If you like your system preferences as they are don't run this script.
+`configure_osx_preferences.sh`
+
+This script sets a bunch of system preferences defaults in osx that I like (faster key repeat, icons in menubar, many others).  If you like your system preferences as they are don't run this script.
 
 For Vim powerline to work, you have to install a patched fonts.  Open one of the `*-Powerline.ttf` fonts in `misc/fonts/`, click install, and set that as your font in iterm or terminal or whatever.
 
