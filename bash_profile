@@ -22,7 +22,7 @@ if [ -f /usr/local/bin/virtualenvwrapper.sh ] ; then source /usr/local/bin/virtu
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; else echo rbenv not installed; fi
 
 # pyenv
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; else echo pyenv not installed; fi
+# if which pyenv > /dev/null; then eval "$(pyenv init -)"; else echo pyenv not installed; fi
 
 # brew bash completion
 if [ -f `brew --prefix`/etc/bash_completion ]; then
@@ -56,4 +56,8 @@ fi
 
 if [ -f ~/.bash_profile_venmo ] ; then
     source ~/.bash_profile_venmo
+fi
+
+if [ -f ~/.bash_aws_credentials ] ; then
+    source ~/.bash_aws_credentials
 fi
