@@ -120,7 +120,7 @@ nmap ,u "zyy"zp:.s/./-/g<CR>:let @/ = ""<CR>
 nmap ,dit dt<dT>
 nmap ,cit dt<cT>
 "
-"clear the fucking search buffer, not just remove the highlight
+"clear the search buffer, not just remove the highlight
 map \c :let @/ = ""<CR>
 
 " Revert the current buffer

@@ -22,7 +22,10 @@ if [ -f /usr/local/bin/virtualenvwrapper.sh ] ; then source /usr/local/bin/virtu
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; else echo rbenv not installed; fi
 
 # pyenv
-# if which pyenv > /dev/null; then eval "$(pyenv init -)"; else echo pyenv not installed; fi
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; else echo pyenv not installed; fi
+
+# go path
+export GOPATH=$HOME/go
 
 # brew bash completion
 if [ -f `brew --prefix`/etc/bash_completion ]; then
@@ -61,3 +64,6 @@ fi
 if [ -f ~/.bash_aws_credentials ] ; then
     source ~/.bash_aws_credentials
 fi
+
+# if boot2docker is installed, source current configuration
+gtimeout 5 which boot2docker > /dev/null && $(boot2docker shellinit)
