@@ -186,8 +186,12 @@ let g:vimux_nose_options="--nologcapture"
 map <Leader>rs :call VimuxRunNoseSetup()<CR>
 map <Leader>ri :call VimuxInspectRunner()<CR>
 map <Leader>rc :call VimuxCloseRunner()<CR>
-
-map <Leader>ra :call VimuxRunNoseAll()<CR>
-map <Leader>rF :call VimuxRunNoseFile()<CR>
-map <Leader>rf :call VimuxRunNoseLine()<CR>
 map <Leader>rr :call VimuxRunLastCommand()<CR>
+
+autocmd FileType python map <Leader>ra :call VimuxRunNoseAll()<CR>
+autocmd FileType python map <Leader>rF :call VimuxRunNoseFile()<CR>
+autocmd FileType python map <Leader>rf :call VimuxRunNoseLine()<CR>
+
+autocmd FileType ruby   map <Leader>ra :call VimuxRunCommand("rspec")<CR>
+autocmd FileType ruby   map <Leader>rF :RunAllRubyTests<CR>
+autocmd FileType ruby   map <Leader>rf :RunRubyFocusedTest<CR>
