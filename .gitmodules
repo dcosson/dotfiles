@@ -52,3 +52,6 @@
 [submodule "vim/bundle/vimux-ruby-test"]
 	path = vim/bundle/vimux-ruby-test
 	url = git@github.com:pgr0ss/vimux-ruby-test.git
+[submodule "vim/bundle/vim-jsx"]
+	path = vim/bundle/vim-jsx
+	url = git@github.com:mxw/vim-jsx.git
