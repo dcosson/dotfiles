@@ -27,6 +27,10 @@ if which pyenv > /dev/null; then eval "$(pyenv init -)"; else echo pyenv not ins
 # go path
 export GOPATH=$HOME/go
 
+# generate ctags in different languages
+alias ctags_ruby='ctags -R --languages=ruby --exclude=.git --exclude=vendor/bundle --exclude=node_modules --exclude=coverage'
+alias ctags_python='ctags -R --languages=python --exclude=.git --exclude=node_modules --exclude=coverage'
+
 # brew bash completion
 if [ -f `brew --prefix`/etc/bash_completion ]; then
 . `brew --prefix`/etc/bash_completion

@@ -47,6 +47,7 @@ let mapleader=","
 " Powerline status line
 let g:Powerline_symbols = 'fancy'
 let g:Powerline_colorscheme = 'default'
+let g:Powerline_stl_path_style = 'short'
 set t_Co=256
 set laststatus=2 "show even if window not split
 " set statusline=%F%m%r%h%w\ \ \ [TYPE=%Y]\ \ \ [POS=%l,%v][%p%%]" [FORMAT=%{&ff}] %{strftime(\"%d/%m/%y\ -\ %H:%M\")} %F%m%r%h%w
@@ -194,4 +195,4 @@ autocmd FileType python map <Leader>rf :call VimuxRunNoseLine()<CR>
 
 autocmd FileType ruby   map <Leader>ra :call VimuxRunCommand("rspec")<CR>
 autocmd FileType ruby   map <Leader>rF :RunAllRubyTests<CR>
-autocmd FileType ruby   map <Leader>rf :RunRubyFocusedTest<CR>
+autocmd FileType ruby   map <Leader>rf :RunRailsFocusedTest<CR>
