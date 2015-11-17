@@ -175,8 +175,8 @@ let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': [],
                            \ 'passive_filetypes': ['txt', 'go'] }
 
-" Let jsx plugin work in .js files (instead of just .jsx)
-" let g:jsx_ext_required = 0
+" js linter that supports jsx
+let g:syntastic_javascript_checkers = ['eslint']
 
 " key shortcuts
 nmap <Ctrl>P ::CtrlPClearCache<CR>

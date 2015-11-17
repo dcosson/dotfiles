@@ -24,13 +24,20 @@ For Vim powerline to work, you have to install a patched fonts.  Open one of the
 
 
 
-### Dependencies
+### Dependencies (make sure they're on your path)
 
-- pypi packages `pyflakes` & `pep8` for python formatting. Make sure they're on your path (if you use homebrew python, install with pip and you'll be fine).
+- `pip install pyflakes pep8`
+
+- `brew install nodejs` and `npm install -g eslint`
 
 - exuberant ctags (not the osx builtin ctags), install it with `brew install ctags`
 
 - vim needs ruby and python support (and you probably also want clipboard, --with-features=huge, etc). See [this gist] (https://gist.github.com/dcosson/3686437) for tips compiling on osx. MacVim probably works too.
+
+
+## Other OSX Workflow Notes
+
+- use pyenv and `pyenv install 2.7.10` and `pyenv set global 2.7.10` (or some non-osx default version). New El Capitan OSX kernel-level security prevents you from writing to certain paths which "sudo pip install" on the system python will try to write to
 
 
 
