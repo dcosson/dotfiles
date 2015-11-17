@@ -44,6 +44,11 @@ set mouse=a  " enable scroll with mouse wheel
 
 let mapleader=","
 
+" Turn off the swapfiles
+set nobackup
+set nowritebackup
+set noswapfile
+
 " Powerline status line
 let g:Powerline_symbols = 'fancy'
 let g:Powerline_colorscheme = 'default'
@@ -169,6 +174,10 @@ let g:syntastic_check_on_open=1
 let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': [],
                            \ 'passive_filetypes': ['txt', 'go'] }
+
+" Let jsx plugin work in .js files (instead of just .jsx)
+" let g:jsx_ext_required = 0
+
 " key shortcuts
 nmap <Ctrl>P ::CtrlPClearCache<CR>
 nmap ,e :SyntasticCheck<CR> :Errors<CR>

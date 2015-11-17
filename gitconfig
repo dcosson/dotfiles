@@ -22,7 +22,7 @@
 	st = status
 	sup = "submodule foreach 'git co master; git up'"
 	tree = log --graph --decorate --pretty=oneline --abbrev-commit --all
-	up = "!git remote update -p; git merge --ff-only @{u}"
+	up = "!git remote update origin -p; git merge --ff-only @{u}"
 	everything = log --pretty=format: --name-only --diff-filter=A
         browse = "!hub browse"
 [push]
