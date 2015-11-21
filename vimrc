@@ -79,6 +79,7 @@ autocmd FileType ruby set expandtab shiftwidth=2 softtabstop=2
 autocmd FileType yaml set expandtab shiftwidth=2 softtabstop=2
 
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd Filetype javascript set expandtab tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType html SoftTab 2
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css SoftTab 2
@@ -173,10 +174,11 @@ let g:syntastic_check_on_open=1
 " mode info
 let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': [],
-                           \ 'passive_filetypes': ['txt', 'go'] }
+                           \ 'passive_filetypes': ['txt', 'go', 'javascript'] }
 
 " js linter that supports jsx
 let g:syntastic_javascript_checkers = ['eslint']
+let g:jsx_ext_required = 0
 
 " key shortcuts
 nmap <Ctrl>P ::CtrlPClearCache<CR>
