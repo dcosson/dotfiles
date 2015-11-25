@@ -58,3 +58,6 @@
 [submodule "vim/bundle/vim-jsx"]
 	path = vim/bundle/vim-jsx
 	url = git@github.com:mxw/vim-jsx.git
+[submodule "vim/bundle/vim-hcl"]
+	path = vim/bundle/vim-hcl
+	url = https://github.com/b4b4r07/vim-hcl.git
