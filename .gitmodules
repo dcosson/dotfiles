@@ -61,3 +61,6 @@
 [submodule "vim/bundle/vim-hcl"]
 	path = vim/bundle/vim-hcl
 	url = https://github.com/b4b4r07/vim-hcl.git
+[submodule "vim/bundle/mustache"]
+	path = vim/bundle/mustache
+	url = git@github.com:mustache/vim-mustache-handlebars.git
