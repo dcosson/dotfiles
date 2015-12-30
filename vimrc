@@ -99,6 +99,7 @@ augroup END
 au BufRead,BufNewFile {Capfile,Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru,.caprc,.irbrc,irb_tempfile*} set ft=ruby
 au BufRead,BufNewFile {*.less,*.sass} set ft=css
 au BufRead,BufNewFile *.us set ft=html "our underscore.js html templates
+au BufRead,BufNewFile {*.tfstate,*.tfstate.backup} set ft=json
 
 " don't show binary files in list of files to open
 set wildignore+=*.pyc,node_modules/**
@@ -174,7 +175,7 @@ let g:syntastic_check_on_open=1
 " mode info
 let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': [],
-                           \ 'passive_filetypes': ['txt', 'go', 'javascript'] }
+                           \ 'passive_filetypes': ['txt', 'go', 'javascript', 'jsx'] }
 
 " js linter that supports jsx
 let g:syntastic_javascript_checkers = ['eslint']
