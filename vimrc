@@ -82,7 +82,9 @@ autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd Filetype javascript set expandtab tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType html SoftTab 2
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType html.handlebars SoftTab 2
 autocmd FileType css SoftTab 2
+autocmd FileType scss SoftTab 2
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType text set wrap linebreak
 
