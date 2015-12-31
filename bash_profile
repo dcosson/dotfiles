@@ -56,6 +56,10 @@ alias mongolocal='sudo mongod run --config /usr/local/etc/mongod.conf --fork && 
 alias showhidefileson='defaults write com.apple.Finder AppleShowAllFiles YES; killall -HUP Finder'
 alias showhidefilesoff='defaults write com.apple.Finder AppleShowAllFiles NO; killall -HUP Finder'
 
+
+### NPM Module common scripts
+alias karma='./node_modules/karma/bin/karma'
+
 ### Source other bash files with specific/private setups
 if [ -f ~/.bash_profile_extensions ] ; then
    source ~/.bash_profile_extensions
