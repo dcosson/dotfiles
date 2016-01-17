@@ -16,7 +16,7 @@ export PATH=/usr/local/bin:$PATH:/usr/local/sbin:/usr/local/mysql/bin:/usr/local
 
 # VirtualEnvWrapper
 export WORKON_HOME=~/virtualenvs
-if [ -f /usr/local/bin/virtualenvwrapper.sh ] ; then source /usr/local/bin/virtualenvwrapper.sh; else echo virtualenvwrapper not installed; fi
+if [ -f /usr/local/bin/virtualenvwrapper.sh ] ; then source /usr/local/bin/virtualenvwrapper.sh; fi
 
 # rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; else echo rbenv not installed; fi
