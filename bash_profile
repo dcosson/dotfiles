@@ -73,6 +73,3 @@ fi
 if [ -f ~/.bash_aws_credentials ] ; then
     source ~/.bash_aws_credentials
 fi
-
-# if boot2docker is installed, source current configuration
-gtimeout 5 which boot2docker > /dev/null && $(boot2docker shellinit)

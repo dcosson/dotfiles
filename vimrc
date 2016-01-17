@@ -106,7 +106,7 @@ au BufRead,BufNewFile {*.tfstate,*.tfstate.backup} set ft=json
 " don't show binary files in list of files to open
 set wildignore+=*.pyc,node_modules/**
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.git|node_modules)$',
+  \ 'dir':  '\v[\/](\.git|node_modules|dist)$',
   \ 'file': '\v\.(exe|so|dll|pyc)$',
   \ }
 let NERDTreeIgnore=[ '\.pyc$', '\.pyo$' ]
