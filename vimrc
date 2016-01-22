@@ -207,6 +207,7 @@ autocmd FileType python map <Leader>ra :call VimuxRunNoseAll()<CR>
 autocmd FileType python map <Leader>rF :call VimuxRunNoseFile()<CR>
 autocmd FileType python map <Leader>rf :call VimuxRunNoseLine()<CR>
 
+let g:vimux_ruby_file_relative_paths = 1
 autocmd FileType ruby   map <Leader>ra :call VimuxRunCommand("rspec")<CR>
 autocmd FileType ruby   map <Leader>rF :RunAllRubyTests<CR>
 autocmd FileType ruby   map <Leader>rf :RunRailsFocusedTest<CR>
