@@ -140,6 +140,9 @@ nnoremap \r :e!<CR>
 nmap \s :source $MYVIMRC<CR>
 nmap \v :e $MYVIMRC<CR>
 
+"Allow setting a hard tab with shift+Tab
+:inoremap <S-Tab> <C-V><Tab>
+
 " :runtime! ~/.vim/
 
 " w!! to write with sudo
@@ -196,7 +199,7 @@ nmap ,R :!!<CR>
 
 
 " --- Vimux commands to run tests
-let g:vimux_nose_setup_cmd="vagrant ssh; cd /vagrant"
+let g:vimux_nose_setup_cmd="echo 'run tests here'"
 let g:vimux_nose_options="--nologcapture"
 map <Leader>rs :call VimuxRunNoseSetup()<CR>
 map <Leader>ri :call VimuxInspectRunner()<CR>
@@ -211,3 +214,4 @@ let g:vimux_ruby_file_relative_paths = 1
 autocmd FileType ruby   map <Leader>ra :call VimuxRunCommand("rspec")<CR>
 autocmd FileType ruby   map <Leader>rF :RunAllRubyTests<CR>
 autocmd FileType ruby   map <Leader>rf :RunRailsFocusedTest<CR>
+" autocmd FileType ruby   map <Leader>rf :call VimuxRunCommand("bundle exec rspec %:20")
