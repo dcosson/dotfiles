@@ -177,10 +177,14 @@ let g:syntastic_enable_signs=0 "sign markings (at beginning of line, before line
 let g:syntastic_enable_highlighting=2
 let g:syntastic_auto_loc_list=0
 let g:syntastic_check_on_open=1
+let g:syntastic_python_checkers = ['flake8']
+" Python line lengths to 100, and ignore multiple #'s in a row at the start of
+" the comment
+let g:syntastic_python_flake8_args='--max-line-length=100 --ignore=E266'
 " mode info
 let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': [],
-                           \ 'passive_filetypes': ['txt', 'go', 'javascript', 'jsx'] }
+                           \ 'passive_filetypes': ['txt', 'go'] }
 
 " js linter that supports jsx
 let g:syntastic_javascript_checkers = ['eslint']

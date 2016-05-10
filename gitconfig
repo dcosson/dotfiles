@@ -15,6 +15,7 @@
 	co = checkout
 	dwc = diff -w -M --color-words
 	fix = rebase -i origin/master
+        recommit = commit --amend --no-edit
         new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
 	recent-branches = --paginate for-each-ref --format='%(committerdate:relative)%09%(refname:short)' --sort='-committerdate' refs/heads
 	recent-branches-origin = --paginate for-each-ref --format='%(committerdate:relative)%09%(refname:short)' --sort='-committerdate' refs/remotes/origin
