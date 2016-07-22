@@ -5,11 +5,30 @@ call pathogen#infect()
 call pathogen#helptags() " generate helptags for everything in 'runtimepath'
 
 call plug#begin('~/.vim/plugged')
-
-" fzf fuzzy searcher plugin
+Plug 'altercation/vim-colors-solarized'
+Plug 'b4b4r07/vim-hcl'
+Plug 'benmills/vimux'
+Plug 'dcosson/vim-powerline'
+Plug 'dcosson/vim-powerline'
+Plug 'jgdavey/tslime.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-
+Plug 'kchmck/vim-coffee-script'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'mxw/vim-jsx'
+Plug 'nvie/vim-flake8'
+Plug 'pangloss/vim-javascript'
+Plug 'pgr0ss/vimux-ruby-test'
+Plug 'puppetlabs/puppet-syntax-vim'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-markdown'
+Plug 'vim-scripts/Pydiction'
+Plug 'vim-scripts/Rename'
+Plug 'vim-scripts/mru.vim'
 call plug#end()
 
 filetype plugin indent on
