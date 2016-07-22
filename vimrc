@@ -3,6 +3,15 @@ set nocompatible
 filetype off " Pathogen needs to run before plugin indent on
 call pathogen#infect()
 call pathogen#helptags() " generate helptags for everything in 'runtimepath'
+
+call plug#begin('~/.vim/plugged')
+
+" fzf fuzzy searcher plugin
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+call plug#end()
+
 filetype plugin indent on
 filetype on
 syntax enable
