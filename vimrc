@@ -120,8 +120,7 @@ let g:ctrlp_custom_ignore = {
   \ }
 
 " fzf fuzzy matcher options
-nnoremap <C-n> :FZF<CR>
-nmap <leader><tab> <plug>(fzf-maps-n)
+nmap <C-p> :FZF<CR>
 
 let NERDTreeIgnore=[ '\.pyc$', '\.pyo$' ]
 
