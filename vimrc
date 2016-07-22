@@ -112,8 +112,21 @@ au BufRead,BufNewFile {*.less,*.sass} set ft=css
 au BufRead,BufNewFile *.us set ft=html "our underscore.js html templates
 au BufRead,BufNewFile {*.tfstate,*.tfstate.backup} set ft=json
 
-" Map ctrl + p to fzf fuzzy matcher
+" Map ctrl + p to fzf fuzzy matcher, and customize colors to match vim
 nmap <C-p> :FZF<CR>
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 
 let NERDTreeIgnore=[ '\.pyc$', '\.pyo$' ]
 
