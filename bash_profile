@@ -31,6 +31,9 @@ export GOPATH=$HOME/go
 alias ctags_ruby='ctags -R --languages=ruby --exclude=.git --exclude=vendor/bundle --exclude=node_modules --exclude=coverage'
 alias ctags_python='ctags -R --languages=python --exclude=.git --exclude=node_modules --exclude=coverage'
 
+# fzf (fuzzy file finder) option for vim - use ag as search source (which ignores .gitignore and .agignore files)
+export FZF_DEFAULT_COMMAND='ag -g ""'
+
 # brew bash completion
 if [ -f `brew --prefix`/etc/bash_completion ]; then
 . `brew --prefix`/etc/bash_completion

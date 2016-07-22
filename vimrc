@@ -112,14 +112,7 @@ au BufRead,BufNewFile {*.less,*.sass} set ft=css
 au BufRead,BufNewFile *.us set ft=html "our underscore.js html templates
 au BufRead,BufNewFile {*.tfstate,*.tfstate.backup} set ft=json
 
-" don't show binary files in list of files to open
-set wildignore+=*.pyc,node_modules/**
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.git|node_modules|dist)$',
-  \ 'file': '\v\.(exe|so|dll|pyc)$',
-  \ }
-
-" fzf fuzzy matcher options
+" Map ctrl + p to fzf fuzzy matcher
 nmap <C-p> :FZF<CR>
 
 let NERDTreeIgnore=[ '\.pyc$', '\.pyo$' ]
