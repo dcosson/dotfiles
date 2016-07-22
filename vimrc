@@ -118,6 +118,11 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.git|node_modules|dist)$',
   \ 'file': '\v\.(exe|so|dll|pyc)$',
   \ }
+
+" fzf fuzzy matcher options
+nnoremap <C-n> :FZF<CR>
+nmap <leader><tab> <plug>(fzf-maps-n)
+
 let NERDTreeIgnore=[ '\.pyc$', '\.pyo$' ]
 
 " fix backspace in vim 7
