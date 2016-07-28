@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Find the PR that merged the given SHA into master
+# From http://genius.com/Andrew-warner-git-getpull-quickly-find-the-pull-request-that-merged-your-commit-to-master-annotated
+
+if [ -z $1 ]; then
+    echo "Usage: git getpull <SHA>"
+elif [ -z "$(git rev-parse --git-dir 2>/dev/null)" ]; then
+    echo "Not in a git directory"
+else
+    repository_path=$(git config --get remote.origin.url 2>/dev/null | \
+                             perl -lne 'print $1 if /(?:(?:https?:\/\/github.com\/)|:)(.*?).git/')
+    pull_base_url=https://github.com/$repository_path/pull
+    pull_id=$(git log $1..master --ancestry-path --merges --oneline 2>/dev/null \
+                     | perl -nle 'print $1 if /#(\d+)/' | tail -n 1)
+
+    if [ -n "$pull_id" ]; then
+        echo "$pull_base_url/$pull_id"
+    else
+        echo "Sorry, couldn't find that pull"
+    fi
+fi
