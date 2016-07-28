@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Find the PR that merged the given SHA into master
+# Find the PR that merged the given SHA into master, and open it in the browser.
 # From http://genius.com/Andrew-warner-git-getpull-quickly-find-the-pull-request-that-merged-your-commit-to-master-annotated
 
 if [ -z $1 ]; then
@@ -15,7 +15,7 @@ else
                      | perl -nle 'print $1 if /#(\d+)/' | tail -n 1)
 
     if [ -n "$pull_id" ]; then
-        echo "$pull_base_url/$pull_id"
+        echo "$pull_base_url/$pull_id" | xargs open
     else
         echo "Sorry, couldn't find that pull" 1>&2
     fi
