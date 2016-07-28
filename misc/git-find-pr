@@ -4,9 +4,9 @@
 # From http://genius.com/Andrew-warner-git-getpull-quickly-find-the-pull-request-that-merged-your-commit-to-master-annotated
 
 if [ -z $1 ]; then
-    echo "Usage: git getpull <SHA>"
+    echo "Usage: git getpull <SHA>" 1>&2
 elif [ -z "$(git rev-parse --git-dir 2>/dev/null)" ]; then
-    echo "Not in a git directory"
+    echo "Not in a git directory" 1>&2
 else
     repository_path=$(git config --get remote.origin.url 2>/dev/null | \
                              perl -lne 'print $1 if /(?:(?:https?:\/\/github.com\/)|:)(.*?).git/')
@@ -17,6 +17,6 @@ else
     if [ -n "$pull_id" ]; then
         echo "$pull_base_url/$pull_id"
     else
-        echo "Sorry, couldn't find that pull"
+        echo "Sorry, couldn't find that pull" 1>&2
     fi
 fi
