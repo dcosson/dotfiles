@@ -1,0 +1,51 @@
+#! /bin/bash
+
+set -e
+
+# Run git bisect, filtering to only test commits that are Github PR merges
+if [ $# -ne 3 ]; then
+    echo "Usage: git bisect-run-prs-only <bad> <good> <script-to-test>"
+    exit 1
+else
+    BAD=$1
+    GOOD=$2
+    SCRIPT_TO_TEST=$3
+fi
+
+git bisect start
+git bisect good $GOOD
+non_merge_commits=$(git log 63a3b5736d72f6f7ebec7a344d0812258ca84c25...HEAD --pretty=oneline | grep -v 'Merge pull request #' | awk '{print $1}' | tr '\n' ' ')
+merge_commits=$(git log 63a3b5736d72f6f7ebec7a344d0812258ca84c25...HEAD --pretty=oneline | grep 'Merge pull request #' | awk '{print $1}' | tr '\n' ' ')
+
+echo "merge commits: $merge_commits"
+
+git bisect skip $non_merge_commits 
+git bisect bad $BAD
+
+# run the bisect, catching any git sha looking patterns from the ending part of the output
+matches=$(git bisect run $SCRIPT_TO_TEST | grep -A1000 'The first bad commit could be any of:' | grep -e '^[0-9a-f]\{40\}$' | tr '\n' ' ')
+echo "Possible breaking commits: $matches"
+
+# Filter out the first Merge commit in the match to display as the one we're looking for
+for commit_sha in $matches; do 
+    set +e
+    echo "$merge_commits" | grep $commit_sha > /dev/null
+    match=$?
+    set -e
+    if [ $match -eq 0 ]; then
+        echo "MATCH!"
+        break
+    fi
+done
+
+echo ""
+echo ""
+if [ $match -eq 0 ]; then
+    echo 'Found breaking PR!'
+    echo ''
+    git show $commit_sha
+    exit 0
+else
+    echo 'Did not find breaking PR'
+    exit 1
+fi
