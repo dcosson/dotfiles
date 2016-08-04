@@ -10,8 +10,8 @@ git fetch origin
 git rebase origin/master
 
 CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-NUMBER_OF_COMMITS_TO_SQUASH="$(git log --format=oneline $(git merge-base origin/master HEAD)..HEAD | wc -l | tr -d ' ')"
-NEW_COMMIT_MSG="$(git log --format=%B $(git merge-base origin/master HEAD)..HEAD)"
+NUMBER_OF_COMMITS_TO_SQUASH="$(git log --format=oneline --reverse $(git merge-base origin/master HEAD)..HEAD | wc -l | tr -d ' ')"
+NEW_COMMIT_MSG="$(git log --format=%B --reverse $(git merge-base origin/master HEAD)..HEAD)"
 
 git checkout origin/master
 
