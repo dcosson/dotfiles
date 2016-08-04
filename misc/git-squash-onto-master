@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -e
+
+# Open a PR on github, squashing current branch into a single commit at the tip of master.
+# First fetch origin, rebase your changes on top of origin/master, save the commit messages of all new commits, then merge --squash on top of master and commit with the given commit message
+
+git fetch origin
+
+git rebase origin/master
+
+CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+NUMBER_OF_COMMITS_TO_SQUASH="$(git log --format=oneline $(git merge-base origin/master HEAD)..HEAD | wc -l | tr -d ' ')"
+NEW_COMMIT_MSG="$(git log --format=%B $(git merge-base origin/master HEAD)..HEAD)"
+
+git checkout origin/master
+
+git merge --squash $CURRENT_BRANCH
+
+git commit -m "$NEW_COMMIT_MSG"
+
+NEW_SHA="$(git rev-parse HEAD)"
+
+git checkout $CURRENT_BRANCH
+
+git reset --hard $NEW_SHA
+
+echo ""
+echo "SUCCESS! Squashed ${NUMBER_OF_COMMITS_TO_SQUASH} commits in branch and rebased on top of master"

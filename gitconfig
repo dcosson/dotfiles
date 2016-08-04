@@ -32,8 +32,6 @@
 	defaultToUpstream = true
 [color]
 	ui = true
-[hub]
-	host = github.braintreeps.com
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
