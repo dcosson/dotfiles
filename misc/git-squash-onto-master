@@ -26,4 +26,4 @@ git checkout $CURRENT_BRANCH
 git reset --hard $NEW_SHA
 
 echo ""
-echo "SUCCESS! Squashed ${NUMBER_OF_COMMITS_TO_SQUASH} commits in branch and rebased on top of master"
+echo -e "SUCCESS! Squashed ${NUMBER_OF_COMMITS_TO_SQUASH} commits in current branch, and rebased on top of origin/master\n(master and origin/master have not been changed, you can now rebase or ff-merge this branch onto origin/master to merge it)"
