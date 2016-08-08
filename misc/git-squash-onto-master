@@ -10,6 +10,7 @@ git fetch origin
 git rebase origin/master
 
 CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+CURRENT_SHA="$(git rev-parse HEAD)"
 NUMBER_OF_COMMITS_TO_SQUASH="$(git log --format=oneline --reverse $(git merge-base origin/master HEAD)..HEAD | wc -l | tr -d ' ')"
 NEW_COMMIT_MSG="$(git log --format=%B --reverse $(git merge-base origin/master HEAD)..HEAD)"
 
@@ -26,4 +27,6 @@ git checkout $CURRENT_BRANCH
 git reset --hard $NEW_SHA
 
 echo ""
-echo -e "SUCCESS! Squashed ${NUMBER_OF_COMMITS_TO_SQUASH} commits in current branch, and rebased on top of origin/master\n(master and origin/master have not been changed, you can now rebase or ff-merge this branch onto origin/master to merge it)"
+echo "SUCCESS! Squashed ${NUMBER_OF_COMMITS_TO_SQUASH} commits in current branch, and rebased on top of origin/master"
+echo "    master and origin/master have not been changed, you can now rebase or ff-merge this branch onto origin/master to merge it"
+echo "    Or to revert to this branch's pre-squashed state run: git reset --hard ${CURRENT_SHA}"
