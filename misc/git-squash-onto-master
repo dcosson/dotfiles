@@ -26,7 +26,10 @@ git checkout $CURRENT_BRANCH
 
 git reset --hard $NEW_SHA
 
+_txtgreen='\033[0;32m'
+_txtdefault='\033[0;0m'
+
 echo ""
-echo "SUCCESS! Squashed ${NUMBER_OF_COMMITS_TO_SQUASH} commits in current branch, and rebased on top of origin/master"
+echo -e "${_txtgreen}SUCCESS! ${_txtdefault}Squashed ${NUMBER_OF_COMMITS_TO_SQUASH} commits in current branch, and rebased on top of origin/master"
 echo "    master and origin/master have not been changed, you can now rebase or ff-merge this branch onto origin/master to merge it"
 echo "    Or to revert to this branch's pre-squashed state run: git reset --hard ${CURRENT_SHA}"
