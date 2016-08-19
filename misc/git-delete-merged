@@ -1,4 +1,10 @@
 #!/bin/bash
+#
+# Deletes all local branches that are set up to track a remote branch on the origin remote, where the
+# remote branch has been deleted.
+#
+# Note that this will not delete a branch that you've pushed to remote but did not set to track. So
+# you need to do e.g. `push -u` for this script to be able to clean up the branch later.
 
 set -e
 
