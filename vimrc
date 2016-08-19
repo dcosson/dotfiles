@@ -64,6 +64,8 @@ set showcmd
 set ai " Automatically set the indent of a new line (local to buffer)
 set tags=./tags;
 set grepprg=ack
+" set text width so gq-like commands wrap at 100 chars
+set tw=100
 
 set equalalways " Multiple windows, when created, are equal in size
 set splitbelow splitright
@@ -251,6 +253,9 @@ map <Leader>rr :call VimuxRunLastCommand()<CR>
 autocmd FileType python map <Leader>ra :call VimuxRunNoseAll()<CR>
 autocmd FileType python map <Leader>rF :call VimuxRunNoseFile()<CR>
 autocmd FileType python map <Leader>rf :call VimuxRunNoseLine()<CR>
+
+autocmd FileType javascript map <Leader>ra :call VimuxRunCommand("clear; $NODE_PATH/karma/bin/karma run -- --grep=")<CR>
+autocmd FileType javascript map <Leader>rf :call VimuxRunCommand("clear; ./dev-scripts/karma-run-line-number.sh " . expand("%.") . ":" . line("."))<CR>
 
 let g:vimux_ruby_file_relative_paths = 1
 autocmd FileType ruby   map <Leader>ra :call VimuxRunCommand("rspec")<CR>
