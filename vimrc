@@ -66,6 +66,8 @@ set tags=./tags;
 set grepprg=ack
 " set text width so gq-like commands wrap at 100 chars
 set tw=100
+" new regex engine seems to be really slow, particularly with ruby. Set to previous one
+set re=1
 
 set equalalways " Multiple windows, when created, are equal in size
 set splitbelow splitright
@@ -73,6 +75,9 @@ set splitbelow splitright
 set mouse=a  " enable scroll with mouse wheel
 
 let mapleader=","
+
+" Turn off Ex mode which I only ever enter by accident
+nnoremap Q <Nop>
 
 " Turn off the swapfiles
 set nobackup
@@ -133,8 +138,11 @@ au BufRead,BufNewFile {*.less,*.sass} set ft=css
 au BufRead,BufNewFile *.us set ft=html "our underscore.js html templates
 au BufRead,BufNewFile {*.tfstate,*.tfstate.backup} set ft=json
 
-" Map ctrl + p to fzf fuzzy matcher, and customize colors to match vim
-nmap <C-p> :FZF<CR>
+" Open useful sidebars (taglist, nerdtree), and navigation tools
+nnoremap ,w :TlistToggle<CR>
+nnoremap ,W :NERDTreeToggle<CR>
+nnoremap <C-p> :FZF<CR>
+nnoremap <C-l> :Tags<CR>
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -196,10 +204,6 @@ if has("autocmd")
     \| exe "normal g'\"" | endif
 endif
 
-" Open useful sidebars (taglist, nerdtree)
-nnoremap ,w :TlistToggle<CR>
-nnoremap ,W :NERDTreeToggle<CR>
-
 " Taglist options
 let g:Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
 let Tlist_Use_Right_Window = 1
@@ -258,7 +262,6 @@ autocmd FileType javascript map <Leader>ra :call VimuxRunCommand("clear; $NODE_P
 autocmd FileType javascript map <Leader>rf :call VimuxRunCommand("clear; ./dev-scripts/karma-run-line-number.sh " . expand("%.") . ":" . line("."))<CR>
 
 let g:vimux_ruby_file_relative_paths = 1
-autocmd FileType ruby   map <Leader>ra :call VimuxRunCommand("rspec")<CR>
-autocmd FileType ruby   map <Leader>rF :RunAllRubyTests<CR>
-autocmd FileType ruby   map <Leader>rf :RunRailsFocusedTest<CR>
-" autocmd FileType ruby   map <Leader>rf :call VimuxRunCommand("bundle exec rspec %:20")
+autocmd FileType ruby map <Leader>ra :call VimuxRunCommand("rspec")<CR>
+autocmd FileType ruby map <Leader>rF :call VimuxRunCommand("clear; ./bin/rspec " . expand("%."))<CR>
+autocmd FileType ruby map <Leader>rf :call VimuxRunCommand("clear; ./bin/rspec " . expand("%.") . ":" . line("."))<CR>

@@ -13,6 +13,7 @@
         br = branch
 	ci = commit -a
 	co = checkout
+        cob = "!git co -b $1 && git push -u origin"
 	dwc = diff -w -M --color-words
 	fix = rebase -i origin/master
         recommit = commit --amend --no-edit
@@ -25,6 +26,7 @@
 	tree = log --graph --decorate --pretty=oneline --abbrev-commit --all
 	up = "!git remote update origin -p; git merge --ff-only @{u}"
 	everything = log --pretty=format: --name-only --diff-filter=A
+        grep-conflicts = grep '<<<<<<<'
         browse = "!hub browse"
 [push]
 	default = simple
