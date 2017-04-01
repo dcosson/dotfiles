@@ -64,6 +64,14 @@ alias showhidefilesoff='defaults write com.apple.Finder AppleShowAllFiles NO; ki
 alias karma='./node_modules/karma/bin/karma'
 alias karmaone='./node_modules/karma/bin/karma start --singleRun --browsers PhantomJS'
 
+
+# Compare sha256 hashes of two files
+filehashcmp() {
+    hash1="$(shasum -a 256 "$1" | awk '{print $1}')"
+    hash2="$(shasum -a 256 "$2" | awk '{print $1}')"
+    if [ "$hash1" == "$hash2" ]; then echo "Files are the same"; else echo "Not the same"; fi
+}
+
 ### Source other bash files with specific/private setups
 if [ -f ~/.bash_profile_extensions ] ; then
    source ~/.bash_profile_extensions
@@ -76,3 +84,5 @@ fi
 if [ -f ~/.bash_aws_credentials ] ; then
     source ~/.bash_aws_credentials
 fi
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"

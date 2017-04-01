@@ -109,6 +109,10 @@ autocmd FileType python set nosmartindent list shiftwidth=4 softtabstop=4
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
 autocmd FileType python nmap ,8 :call Pep8()<CR>
+let g:pyindent_open_paren = '&sw'
+let g:pyindent_nested_paren = '&sw'
+let g:pyindent_continue = '&sw'
+
 " Ruby
 autocmd FileType ruby set expandtab shiftwidth=2 softtabstop=2
 autocmd FileType yaml set expandtab shiftwidth=2 softtabstop=2
