@@ -79,3 +79,5 @@ for f in ${dotfile_whitelist[@]}; do
     continue
   fi
 done
+
+touch "${HOME}/.dotfiles-installed"
