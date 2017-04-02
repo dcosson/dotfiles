@@ -95,7 +95,10 @@ defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
+# And save them to the ~/Screenshots directory
 defaults write com.apple.screencapture type -string "png"
+mkdir -p ~/Screenshots
+defaults write com.apple.screencapture location ~/Screenshots
 
 # Enable HiDPI display modes (requires restart)
 # sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
