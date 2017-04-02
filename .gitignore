@@ -1,2 +1,5 @@
 .netrwhist
 .DS_Store
+
+# Build dir for vim-plug plugins
+vim/plugged

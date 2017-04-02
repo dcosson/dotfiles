@@ -29,6 +29,7 @@ Plug 'tpope/vim-markdown'
 Plug 'vim-scripts/Pydiction'
 Plug 'vim-scripts/Rename'
 Plug 'vim-scripts/mru.vim'
+Plug 'vim-scripts/taglist.vim'
 call plug#end()
 
 filetype plugin indent on
