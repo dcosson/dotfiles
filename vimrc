@@ -1,14 +1,14 @@
 " Pathogen
 set nocompatible
 filetype off " Pathogen needs to run before plugin indent on
-call pathogen#infect()
-call pathogen#helptags() " generate helptags for everything in 'runtimepath'
+" call pathogen#infect()
+" call pathogen#helptags() " generate helptags for everything in 'runtimepath'
 
 call plug#begin('~/.vim/plugged')
 Plug 'altercation/vim-colors-solarized'
 Plug 'b4b4r07/vim-hcl'
 Plug 'benmills/vimux'
-Plug 'dcosson/vim-powerline'
+Plug 'dcosson/vimux-nose-test2'
 Plug 'dcosson/vim-powerline'
 Plug 'jgdavey/tslime.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
