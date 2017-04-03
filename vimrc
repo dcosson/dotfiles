@@ -8,8 +8,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'altercation/vim-colors-solarized'
 Plug 'b4b4r07/vim-hcl'
 Plug 'benmills/vimux'
-Plug 'dcosson/vimux-nose-test2'
 Plug 'dcosson/vim-powerline'
+Plug 'dcosson/vimux-nose-test2'
+Plug 'fatih/vim-go'
 Plug 'jgdavey/tslime.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
