@@ -1,9 +1,4 @@
-" Pathogen
-set nocompatible
-filetype off " Pathogen needs to run before plugin indent on
-" call pathogen#infect()
-" call pathogen#helptags() " generate helptags for everything in 'runtimepath'
-
+" Vim plugins
 call plug#begin('~/.vim/plugged')
 Plug 'altercation/vim-colors-solarized'
 Plug 'b4b4r07/vim-hcl'
@@ -32,17 +27,6 @@ Plug 'vim-scripts/Rename'
 Plug 'vim-scripts/mru.vim'
 Plug 'vim-scripts/taglist.vim'
 call plug#end()
-
-filetype plugin indent on
-filetype on
-syntax enable
-" let g:solarized_termcolors=256
-" let g:solarized_termtrans=1
-" let g:solarized_contrast='high'
-" let g:solarized_visibility='normal'
-" set background=dark
-" colorscheme solarized
-" colorscheme Tomorrow-Night
 colorscheme tomorrow-night-dcosson
 
 "Simple switching between hard tabs and spaces

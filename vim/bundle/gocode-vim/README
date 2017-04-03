@@ -1,5 +1,0 @@
-Omni-complete for Go. I copied the vim files from the gocode repository
-(https://github.com/nsf/gocode) since the repo itself is not a vim/pathogen
-compatible directory.
-
-You have to install the gocode binary and put it on your PATH for this to work
