@@ -1,50 +1,48 @@
 ## Danny Cosson Dotfiles
 
-My configuration files for my MacOS dev environment.
+Configuration files for my dev environment.
 
-At the moment it's configuration for bash, vim, git, tmux & screen, and some miscellaneous files (favorite programming fonts, short scripts I've found useful, etc).
+At the moment it's configuration for bash, vim, git, tmux, and some miscellaneous files (favorite programming fonts, short scripts I've found useful, etc).
 
 ### Usage
 
-NB: Note that in gitconfig, my user is set.  So you'll want to change that to you or all your commits will have my name.  Other than that, there's nothing personally tied to me.
+NB: Note that in gitconfig, my username is set.  So you'll want to change that to you or all your commits will have my name.  Other than that, there's nothing personally tied to me.
 
-`git submodule update --init`
+`make_symlinks.sh` - symlinks all dotfiles into place
 
-A lot of the vim plugins are linked as submodules
-
-`make_symlinks.sh`
-
-This script symlinks the dotfiles into place. If you have existing dotfiles where they need to go, those will be moved to an `~/old_dotfiles` directory.
-
-`configure_osx_preferences.sh`
-
-This script sets a bunch of system preferences defaults in osx that I like (faster key repeat, icons in menubar, many others).  If you like your system preferences as they are don't run this script.
-
-For Vim powerline to work, you have to install a patched fonts.  Open one of the `*-Powerline.ttf` fonts in `misc/fonts/`, click install, and set that as your font in iterm or terminal or whatever.
-
+`configure_osx_preferences.sh` - configures system preferences how I like them (things like fast key repeat, incons in menu bar, Finder options, etc.)
 
 
 ### Dependencies (make sure they're on your path)
 
-- `pip install pyflakes pep8`
+- `pip install flake8`
 
 - `brew install nodejs` and `npm install -g eslint`
 
 - exuberant ctags (not the osx builtin ctags), install it with `brew install ctags`
 
-- vim needs ruby and python support (and you probably also want clipboard, --with-features=huge, etc). See [this gist] (https://gist.github.com/dcosson/3686437) for tips compiling on osx. MacVim probably works too.
+- vim needs ruby and python support, best to not use pre-installed version and just `brew install vim`
+
+- Install fonts with `brew tap caskroom/fonts` and `brew cask install font-inconsolata font-inconsolata-for-powerline`. The vim-powerline plugin needs the "-for-powerline" version of whatever font you use.
 
 
 ## Other OSX Workflow Notes
 
-- use pyenv and `pyenv install 2.7.10` and `pyenv set global 2.7.10` (or some non-osx default version). New El Capitan OSX kernel-level security prevents you from writing to certain paths which "sudo pip install" on the system python will try to write to
+Avoid system language binaries for python & ruby (they're installed globally so you'll have to sudo install things, and there are some new as of El Capitan kernel-level security that will prevent even sudo from writing to certain paths that pip install might try to write to).
 
+Instead:
 
+``` bash
+brew install pyenv rbenv
+# find latest released version of ruby
+rbenv install --list | grep '^\s*2.' | grep -v preview | grep -v dev | tail -1
+# now whatever that output was, rbenv install that version e.g.
+rbenv install 2.3.3
 
-###Unversioned plugin notes:
+# find latest released version of python 2.7.x
+pyenv install --list | grep '^\s*2.7' | grep -v preview | grep -v dev | tail -1
+# now whatever that output was, rbenv install that version e.g.
+rbenv install 2.7.11
+```
 
-Pathogen is from [https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim](https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim)
-
-python\_pep8.vim is version 1.1 from [http://www.vim.org/scripts/script.php?script_id=3160](http://www.vim.org/scripts/script.php?script_id=3160)
-
-tommorrow-theme colorscheme is from [https://github.com/chriskempson/tomorrow-theme](https://github.com/chriskempson/tomorrow-theme), I made a few customizations to tomorrow-night-dcosson to make it darker
+Now, for one-off pip or gem global libraries you need to install, you'll never need `sudo`.
