@@ -12,6 +12,8 @@ NB: Note that in gitconfig, my username is set.  So you'll want to change that t
 
 `configure_osx_preferences.sh` - configures system preferences how I like them (things like fast key repeat, incons in menu bar, Finder options, etc.)
 
+Run `PlugInstall` inside of vim to install [vim-plug](https://github.com/junegunn/vim-plug) plugins.
+
 
 ### Dependencies (make sure they're on your path)
 
