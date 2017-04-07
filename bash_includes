@@ -85,3 +85,6 @@ alias ip='curl icanhazip.com'
 
 # create an empty new bash script
 bashscript() { touch $1; chmod a+x $1; echo -e "#!/bin/bash\n\n" > $1; vim $1; }
+
+# convert a simple yaml file to json
+yaml_file_as_json() { ruby -e 'require "yaml"; require "json"; puts JSON.dump(YAML.parse(open(File.expand_path("'"$1"'")).read).to_ruby)'; }
