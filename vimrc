@@ -3,6 +3,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'altercation/vim-colors-solarized'
 Plug 'b4b4r07/vim-hcl'
 Plug 'benmills/vimux'
+Plug 'dcosson/ale'
 Plug 'dcosson/vimux-nose-test2'
 Plug 'fatih/vim-go'
 Plug 'flowtype/vim-flow'
@@ -26,7 +27,6 @@ Plug 'vim-scripts/Pydiction'
 Plug 'vim-scripts/Rename'
 Plug 'vim-scripts/mru.vim'
 Plug 'vim-scripts/taglist.vim'
-Plug 'w0rp/ale'
 call plug#end()
 colorscheme tomorrow-night-dcosson
 
@@ -97,8 +97,12 @@ let g:pyindent_continue = '&sw'
 autocmd FileType ruby set expandtab shiftwidth=2 softtabstop=2
 autocmd FileType yaml set expandtab shiftwidth=2 softtabstop=2
 
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+" autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd Filetype javascript set expandtab tabstop=2 softtabstop=2 shiftwidth=2
+let g:flow#enable = 0
+let g:flow#omnifunc = 1
+let g:flow#flowpath = './dev-scripts/flow-proxy.sh'
+
 autocmd FileType html SoftTab 2
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType html.handlebars SoftTab 2
