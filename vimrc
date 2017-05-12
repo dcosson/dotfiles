@@ -3,9 +3,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'altercation/vim-colors-solarized'
 Plug 'b4b4r07/vim-hcl'
 Plug 'benmills/vimux'
-Plug 'dcosson/vim-powerline'
 Plug 'dcosson/vimux-nose-test2'
 Plug 'fatih/vim-go'
+Plug 'flowtype/vim-flow'
 Plug 'jgdavey/tslime.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -17,15 +17,16 @@ Plug 'pangloss/vim-javascript'
 Plug 'pgr0ss/vimux-ruby-test'
 Plug 'puppetlabs/puppet-syntax-vim'
 Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/syntastic'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
+Plug 'vim-airline/vim-airline'
 Plug 'vim-scripts/Pydiction'
 Plug 'vim-scripts/Rename'
 Plug 'vim-scripts/mru.vim'
 Plug 'vim-scripts/taglist.vim'
+Plug 'w0rp/ale'
 call plug#end()
 colorscheme tomorrow-night-dcosson
 
@@ -69,14 +70,8 @@ nnoremap Q <Nop>
 set nobackup
 set nowritebackup
 set noswapfile
-
-" Powerline status line
-let g:Powerline_symbols = 'fancy'
-let g:Powerline_colorscheme = 'default'
-let g:Powerline_stl_path_style = 'short'
 set t_Co=256
 set laststatus=2 "show even if window not split
-" set statusline=%F%m%r%h%w\ \ \ [TYPE=%Y]\ \ \ [POS=%l,%v][%p%%]" [FORMAT=%{&ff}] %{strftime(\"%d/%m/%y\ -\ %H:%M\")} %F%m%r%h%w
 
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
@@ -90,7 +85,7 @@ augroup CursorLine
   au WinLeave * setlocal nocursorline
 augroup END
 
-" Python
+" Language-specific settings
 autocmd FileType python set nosmartindent list shiftwidth=4 softtabstop=4
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
@@ -99,7 +94,6 @@ let g:pyindent_open_paren = '&sw'
 let g:pyindent_nested_paren = '&sw'
 let g:pyindent_continue = '&sw'
 
-" Ruby
 autocmd FileType ruby set expandtab shiftwidth=2 softtabstop=2
 autocmd FileType yaml set expandtab shiftwidth=2 softtabstop=2
 
@@ -116,6 +110,11 @@ autocmd FileType text set wrap linebreak
 augroup mkd
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
 augroup END
+
+autocmd FileType markdown set formatoptions=cqln
+
+" vim-jsx setting
+let g:jsx_ext_required = 0
 
 
 " SnipMate? Not using it, maybe someday i will
@@ -200,32 +199,30 @@ let Tlist_Use_Right_Window = 1
 let Tlist_WinWidth = 45
 
 """
-""" Syntastic syntax checking 
+""" Ale syntax checking 
 """
-" status line
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" let g:syntastic_disable=['py']
-let g:syntastic_enable_signs=0 "sign markings (at beginning of line, before line numbers)
-let g:syntastic_enable_highlighting=2
-let g:syntastic_auto_loc_list=0
-let g:syntastic_check_on_open=1
-let g:syntastic_python_checkers = ['flake8']
-" Python line lengths to 100, and ignore multiple #'s in a row at the start of
-" the comment
-let g:syntastic_python_flake8_args='--max-line-length=100 --ignore=E266'
-" mode info
-let g:syntastic_mode_map = { 'mode': 'active',
-                           \ 'active_filetypes': [],
-                           \ 'passive_filetypes': ['txt', 'go'] }
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_linters = {
+\   'javascript': ['flow'],
+\   'python': ['flake8'],
+\   'ruby': ['ruby'],
+\}
+let g:ale_javascript_flow_executable = './dev-scripts/flow-proxy.sh'
+let g:ale_javascript_flow_use_relative_paths = 1
+"" Only lint on save or normal mode changes, but not every keystroke in insert mode
+let g:ale_lint_on_text_changed = 'normal'
 
-" js linter that supports jsx
-let g:syntastic_javascript_checkers = ['eslint']
-let g:jsx_ext_required = 0
+" Display Ale status in Airline
+call airline#parts#define_function('ALE', 'ALEGetStatusLine')
+call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
+let g:airline_section_error = airline#section#create_right(['ALE'])
+
+nmap <Leader>a :ALENextWrap<CR>
+nmap <Leader>A :ALEPrevious<CR>
 
 " key shortcuts
-nmap <Ctrl>P ::CtrlPClearCache<CR>
 nmap ,e :SyntasticCheck<CR> :Errors<CR>
 nmap ,R :!!<CR>
 
