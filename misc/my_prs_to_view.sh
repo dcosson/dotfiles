@@ -93,13 +93,17 @@ check_prs() {
         # blink the light whether or not we know about these PR, just don't print the output
         # multiple times if we already know about them.
         blink_the_light > /dev/null &
+        echo ""
+        echo "Checking $(date "+%Y-%m-%d %H:%M:%S")"
         for pr_number in "${prs_to_review[@]}"; do
-            if ! array_contains prs_known_about "$pr_number"; then
+            if array_contains prs_known_about "$pr_number"; then
                 printf -v safe_item '%q' "$pr_number"
                 eval "prs_known_about+=( $safe_item )"
-                echo "https://github.com/${github_org}/${github_repo}/pull/${pr_number}"
+            else
+            echo "https://github.com/${github_org}/${github_repo}/pull/${pr_number}"
             fi
         done
+        echo ""
         # debuggin
         # echo "prs known about ${prs_known_about[@]}"
     fi
