@@ -17,5 +17,5 @@ read -p "Email: " user_email
 git config --global user.name "$user_name"
 git config --global user.email "$user_email"
 git config --global core.excludesfile "${HOME}/.gitignore"
-git config --global includes.path "${HOME}/.gitconfig-shared"
+git config --global include.path "${HOME}/.gitconfig-shared"
 
