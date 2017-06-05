@@ -4,3 +4,4 @@
 set -e
 
 ./make_symlinks.sh
+./write_gitconfig.sh

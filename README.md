@@ -6,9 +6,9 @@ Contains configuration for bash, vim, git, tmux, and some miscellaneous files (f
 
 ### Usage
 
-NB: Note that in gitconfig, my username is set.  So you'll want to change that to you or all your commits will have my name.  Other than that, there's nothing personally tied to me.
+There's nothing personally tied to me (user name, email, etc.) so these dotfiles can be forked and re-used for you as-is. The install script has an interactive step to set personal global git variables like name and email.
 
-`install.sh` - symlinks all dotfiles into place, and sets up your global git config.
+`install.sh` - symlinks all dotfiles into place, and interactively sets up your global git config.
 
 `configure_osx_preferences.sh` - configures system preferences in a more developer-friendly way (things like fast key repeat, less annoying menu bar, Finder options, no time machine, etc.)
 
