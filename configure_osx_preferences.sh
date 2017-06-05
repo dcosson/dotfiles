@@ -14,9 +14,6 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # General UI/UX                                                               #
 ###############################################################################
 
-# Set standby delay to 24 hours (default is 1 hour)
-# sudo pmset -a standbydelay 86400
-
 # Menu bar: hide the Time Machine icon
 for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
     defaults write "${domain}" dontAutoLoad -array \
@@ -192,22 +189,6 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 
 # Don’t display the annoying prompt when quitting iTerm
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false
-
-###############################################################################
-# Twitter.app                                                                 #
-###############################################################################
-
-# Disable smart quotes as it’s annoying for code tweets
-defaults write com.twitter.twitter-mac AutomaticQuoteSubstitutionEnabled -bool false
-
-# Show the app window when clicking the menu bar icon
-defaults write com.twitter.twitter-mac MenuItemBehavior -int 1
-
-# Open links in the background
-defaults write com.twitter.twitter-mac openLinksInBackground -bool true
-
-# Allow closing the ‘new tweet’ window by pressing `Esc`
-defaults write com.twitter.twitter-mac ESCClosesComposeWindow -bool true
 
 ###############################################################################
 # Kill affected applications                                                  #
