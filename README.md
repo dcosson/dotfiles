@@ -2,15 +2,15 @@
 
 Configuration files for my dev environment.
 
-At the moment it's configuration for bash, vim, git, tmux, and some miscellaneous files (favorite programming fonts, short scripts I've found useful, etc).
+Contains configuration for bash, vim, git, tmux, and some miscellaneous files (favorite programming fonts, short scripts I've found useful, etc).
 
 ### Usage
 
 NB: Note that in gitconfig, my username is set.  So you'll want to change that to you or all your commits will have my name.  Other than that, there's nothing personally tied to me.
 
-`make_symlinks.sh` - symlinks all dotfiles into place
+`install.sh` - symlinks all dotfiles into place, and sets up your global git config.
 
-`configure_osx_preferences.sh` - configures system preferences how I like them (things like fast key repeat, incons in menu bar, Finder options, etc.)
+`configure_osx_preferences.sh` - configures system preferences in a more developer-friendly way (things like fast key repeat, less annoying menu bar, Finder options, no time machine, etc.)
 
 Run `PlugInstall` inside of vim to install [vim-plug](https://github.com/junegunn/vim-plug) plugins.
 

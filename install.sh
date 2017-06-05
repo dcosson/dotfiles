@@ -3,5 +3,4 @@
 
 set -e
 
-./configure_osx_preferences.sh
 ./make_symlinks.sh
