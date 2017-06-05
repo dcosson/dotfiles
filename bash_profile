@@ -64,6 +64,8 @@ alias showhidefilesoff='defaults write com.apple.Finder AppleShowAllFiles NO; ki
 alias karma='./node_modules/karma/bin/karma'
 alias karmaone='./node_modules/karma/bin/karma start --singleRun --browsers PhantomJS'
 
+### Docker helpers
+alias dk='docker-compose'
 
 # Compare sha256 hashes of two files
 filehashcmp() {

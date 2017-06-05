@@ -5,6 +5,7 @@ Plug 'b4b4r07/vim-hcl'
 Plug 'benmills/vimux'
 Plug 'dcosson/ale'
 Plug 'dcosson/vimux-nose-test2'
+Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go'
 Plug 'flowtype/vim-flow'
 Plug 'jgdavey/tslime.vim'
@@ -17,6 +18,7 @@ Plug 'nvie/vim-flake8'
 Plug 'pangloss/vim-javascript'
 Plug 'pgr0ss/vimux-ruby-test'
 Plug 'puppetlabs/puppet-syntax-vim'
+Plug 'sbdchd/neoformat'
 Plug 'scrooloose/nerdtree'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-abolish'
@@ -36,7 +38,7 @@ command! -nargs=? SoftTab setlocal expandtab tabstop=<args> shiftwidth=<args> so
 
 set number
 set et
-set sw=4
+set sw=2
 set smarttab
 " set smartindent
 set incsearch
@@ -97,7 +99,7 @@ let g:pyindent_continue = '&sw'
 autocmd FileType ruby set expandtab shiftwidth=2 softtabstop=2
 autocmd FileType yaml set expandtab shiftwidth=2 softtabstop=2
 
-" autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd Filetype javascript set expandtab tabstop=2 softtabstop=2 shiftwidth=2
 let g:flow#enable = 0
 let g:flow#omnifunc = 1
@@ -117,7 +119,8 @@ augroup END
 
 autocmd FileType markdown set formatoptions=cqln
 
-" vim-jsx setting
+" vim-javascript and vim-jsx settings
+let g:javascript_plugin_flow = 1
 let g:jsx_ext_required = 0
 
 
@@ -135,7 +138,7 @@ au BufRead,BufNewFile {*.tfstate,*.tfstate.backup} set ft=json
 nnoremap ,w :TlistToggle<CR>
 nnoremap ,W :NERDTreeToggle<CR>
 nnoremap <C-p> :FZF<CR>
-nnoremap <C-l> :Tags<CR>
+" nnoremap <C-[> :Tags<CR>
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -197,21 +200,27 @@ if has("autocmd")
     \| exe "normal g'\"" | endif
 endif
 
+"folding settings
+set foldmethod=indent   "fold based on indent
+set foldnestmax=10      "deepest fold is 10 levels
+set foldlevel=1
+set foldlevelstart=99
+
 " Taglist options
 let g:Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
 let Tlist_Use_Right_Window = 1
 let Tlist_WinWidth = 45
 
 """
-""" Ale syntax checking 
+""" Ale syntax checking
 """
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_echo_msg_error_str = '🤕 '
+let g:ale_echo_msg_warning_str = '😕 '
+let g:ale_echo_msg_format = '%severity% [%linter%] %s'
 let g:ale_linters = {
 \   'javascript': ['eslint', 'flow'],
 \   'python': ['flake8'],
-\   'ruby': ['ruby'],
+\   'ruby': ['ruby', 'rubocop'],
 \}
 let g:ale_javascript_flow_executable = './dev-scripts/flow-proxy.sh'
 let g:ale_javascript_flow_use_relative_paths = 1
@@ -223,17 +232,18 @@ call airline#parts#define_function('ALE', 'ALEGetStatusLine')
 call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
 let g:airline_section_error = airline#section#create_right(['ALE'])
 
-nmap <Leader>a :ALENextWrap<CR>
-nmap <Leader>A :ALEPrevious<CR>
+nmap <Leader>e :ALENextWrap<CR>
+nmap <Leader>E :ALEPrevious<CR>
 
 " key shortcuts
-nmap ,e :SyntasticCheck<CR> :Errors<CR>
 nmap ,R :!!<CR>
 
-"folding settings
-" set foldmethod=indent   "fold based on indent
-" set foldnestmax=10      "deepest fold is 10 levels
-" set foldlevel=1
+"""
+""" Neoformat options
+"""
+autocmd BufWritePre *.js Neoformat
+autocmd FileType javascript setlocal formatprg=prettier\ --write\ --single-quote\ --jsx-bracket-same-line\ --parser\ babylon\ --trailing-comma\ es5\ --print-width\ 100
+let g:neoformat_try_formatprg = 1  " Use formatprg when available
 
 
 
