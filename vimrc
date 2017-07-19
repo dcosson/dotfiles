@@ -3,7 +3,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'altercation/vim-colors-solarized'
 Plug 'b4b4r07/vim-hcl'
 Plug 'benmills/vimux'
-Plug 'dcosson/ale'
+Plug 'w0rp/ale'
 Plug 'dcosson/vimux-nose-test2'
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go'
@@ -18,7 +18,6 @@ Plug 'nvie/vim-flake8'
 Plug 'pangloss/vim-javascript'
 Plug 'pgr0ss/vimux-ruby-test'
 Plug 'puppetlabs/puppet-syntax-vim'
-Plug 'sbdchd/neoformat'
 Plug 'scrooloose/nerdtree'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-abolish'
@@ -103,7 +102,7 @@ autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd Filetype javascript set expandtab tabstop=2 softtabstop=2 shiftwidth=2
 let g:flow#enable = 0
 let g:flow#omnifunc = 1
-let g:flow#flowpath = './dev-scripts/flow-proxy.sh'
+" let g:flow#flowpath = './dev-scripts/flow-proxy.sh'
 
 autocmd FileType html SoftTab 2
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
@@ -189,6 +188,9 @@ nmap \v :e $MYVIMRC<CR>
 
 " :runtime! ~/.vim/
 
+" re-run last command
+nmap ,R :!!<CR>
+
 " w!! to write with sudo
 cnoreabbrev <expr> w!!
     \((getcmdtype() == ':' && getcmdline() == 'w!!')
@@ -211,21 +213,39 @@ let g:Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
 let Tlist_Use_Right_Window = 1
 let Tlist_WinWidth = 45
 
+
 """
-""" Ale syntax checking
+""" Ale syntax checking & formatting
 """
-let g:ale_echo_msg_error_str = '🤕 '
-let g:ale_echo_msg_warning_str = '😕 '
-let g:ale_echo_msg_format = '%severity% [%linter%] %s'
+let g:ale_enabled = 1
+
+" visual options
+let g:ale_sign_column_always = 1
+let g:ale_sign_warning = '✋'
+let g:ale_sign_error = '🚫'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+" Linting options
 let g:ale_linters = {
 \   'javascript': ['eslint', 'flow'],
+\   'jsx': ['eslint', 'flow'],
 \   'python': ['flake8'],
 \   'ruby': ['ruby', 'rubocop'],
+\   'hcl': [],
 \}
-let g:ale_javascript_flow_executable = './dev-scripts/flow-proxy.sh'
-let g:ale_javascript_flow_use_relative_paths = 1
-"" Only lint on save or normal mode changes, but not every keystroke in insert mode
+" Only lint on save or when switching back to normal mode, not every keystroke in insert mode
 let g:ale_lint_on_text_changed = 'normal'
+
+" Fixer options
+let g:ale_fixers = {
+\   'javascript': ['prettier', 'remove_trailing_lines'],
+\   'ruby': ['rubocop', 'remove_trailing_lines'],
+\}
+let g:ale_fix_on_save = 1
+" language-specific options
+let g:ale_javascript_prettier_options = ' --parser babylon --single-quote --jsx-bracket-same-line --trailing-comma es5 --print-width 100'
 
 " Display Ale status in Airline
 call airline#parts#define_function('ALE', 'ALEGetStatusLine')
@@ -233,17 +253,15 @@ call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
 let g:airline_section_error = airline#section#create_right(['ALE'])
 
 nmap <Leader>e :ALENextWrap<CR>
-nmap <Leader>E :ALEPrevious<CR>
+nmap <Leader>E :ALEPreviousWrap<CR>
 
-" key shortcuts
-nmap ,R :!!<CR>
 
-"""
-""" Neoformat options
-"""
-autocmd BufWritePre *.js Neoformat
-autocmd FileType javascript setlocal formatprg=prettier\ --write\ --single-quote\ --jsx-bracket-same-line\ --parser\ babylon\ --trailing-comma\ es5\ --print-width\ 100
-let g:neoformat_try_formatprg = 1  " Use formatprg when available
+" """
+" """ Neoformat options
+" """
+" autocmd BufWritePre *.js Neoformat
+" autocmd FileType javascript setlocal formatprg=prettier\ --write\ --single-quote\ --jsx-bracket-same-line\ --parser\ babylon\ --trailing-comma\ es5\ --print-width\ 100
+" let g:neoformat_try_formatprg = 1  " Use formatprg when available
 
 
 
@@ -266,3 +284,9 @@ let g:vimux_ruby_file_relative_paths = 1
 autocmd FileType ruby map <Leader>ra :call VimuxRunCommand("rspec")<CR>
 autocmd FileType ruby map <Leader>rF :call VimuxRunCommand("clear; ./bin/rspec " . expand("%."))<CR>
 autocmd FileType ruby map <Leader>rf :call VimuxRunCommand("clear; ./bin/rspec " . expand("%.") . ":" . line("."))<CR>
+
+" Show what syntax highlighting recognizes the context as
+map <Leader>sh :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
