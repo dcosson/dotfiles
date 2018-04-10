@@ -132,6 +132,7 @@ au BufRead,BufNewFile {Capfile,Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru,.
 au BufRead,BufNewFile {*.less,*.sass} set ft=css
 au BufRead,BufNewFile *.us set ft=html "our underscore.js html templates
 au BufRead,BufNewFile {*.tfstate,*.tfstate.backup} set ft=json
+au BufRead,BufNewFile {Jenkinsfile} set ft=groovy
 
 " Open useful sidebars (taglist, nerdtree), and navigation tools
 nnoremap ,w :TlistToggle<CR>
@@ -254,6 +255,15 @@ let g:airline_section_error = airline#section#create_right(['ALE'])
 
 nmap <Leader>e :ALENextWrap<CR>
 nmap <Leader>E :ALEPreviousWrap<CR>
+
+" Airline perf fix
+" make Esc happen without waiting for timeoutlen
+" fixes Powerline delay
+augroup FastEscape
+  autocmd!
+  au InsertEnter * set timeoutlen=0
+  au InsertLeave * set timeoutlen=1000
+augroup END
 
 
 " """
