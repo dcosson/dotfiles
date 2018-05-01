@@ -1,6 +1,10 @@
 " Vim plugins
 call plug#begin('~/.vim/plugged')
 Plug 'altercation/vim-colors-solarized'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 Plug 'b4b4r07/vim-hcl'
 Plug 'benmills/vimux'
 Plug 'w0rp/ale'
@@ -103,6 +107,17 @@ autocmd Filetype javascript set expandtab tabstop=2 softtabstop=2 shiftwidth=2
 let g:flow#enable = 0
 let g:flow#omnifunc = 1
 " let g:flow#flowpath = './dev-scripts/flow-proxy.sh'
+" let g:ale_javascript_flow_executable = './dev-scripts/flow-proxy.sh'
+
+" LanguageClient LSP protocol
+let g:LanguageClient_serverCommands = {
+\ 'javascript.jsx': ['flow-language-server', '--stdio', '--try-flow-bin', '--no-auto-download'],
+\ }
+let g:LanguageClient_autoStart = 1
+map <Leader>si :call LanguageClient#textDocument_hover()<CR>
+map <Leader>sj :call LanguageClient#textDocument_definition()<CR>
+map <Leader>sl :call LanguageClient#textDocument_documentSymbol()<CR>
+
 
 autocmd FileType html SoftTab 2
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
@@ -230,8 +245,8 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 " Linting options
 let g:ale_linters = {
-\   'javascript': ['eslint', 'flow'],
-\   'jsx': ['eslint', 'flow'],
+\   'javascript': ['eslint'],
+\   'jsx': ['eslint'],
 \   'python': ['flake8'],
 \   'ruby': ['ruby', 'rubocop'],
 \   'hcl': [],
