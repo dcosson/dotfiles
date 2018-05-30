@@ -237,8 +237,8 @@ let g:ale_enabled = 1
 
 " visual options
 let g:ale_sign_column_always = 1
-let g:ale_sign_warning = '✋'
-let g:ale_sign_error = '🚫'
+let g:ale_sign_warning = '>'
+let g:ale_sign_error = 'X'
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
@@ -304,6 +304,8 @@ autocmd FileType python map <Leader>rf :call VimuxRunNoseLine()<CR>
 
 autocmd FileType javascript map <Leader>ra :call VimuxRunCommand("clear; $NODE_PATH/karma/bin/karma run -- --grep=")<CR>
 autocmd FileType javascript map <Leader>rf :call VimuxRunCommand("clear; ./dev-scripts/karma-run-line-number.sh " . expand("%.") . ":" . line("."))<CR>
+
+autocmd FileType javascript map <buffer> <Leader>rl :call VimuxRunCommand("clear; ./dev-scripts/jest-run-focused-test.sh " . expand("%.") . ":" . line("."))<CR>
 
 let g:vimux_ruby_file_relative_paths = 1
 autocmd FileType ruby map <Leader>ra :call VimuxRunCommand("rspec")<CR>
