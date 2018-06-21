@@ -24,6 +24,9 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; else echo rbenv not ins
 # pyenv
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; eval "$(pyenv virtualenv-init -)"; else echo pyenv not installed; fi
 
+# nodenv
+if which nodenv > /dev/null; then eval "$(nodenv init -)"; else echo nodenv not installed; fi
+
 # go path
 export GOPATH=$HOME/go
 
