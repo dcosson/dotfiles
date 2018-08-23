@@ -66,10 +66,8 @@ export PROMPT_COMMAND=__prompt_command
 ### useful aliases
 ###
 alias lsl='ls -G -lh --color=auto'
-lsp() { ls -lh $1 | egrep -v '.*.pyc$'; }
 alias grep='grep -i --color=auto'
 alias gg='git grep -n --color --heading --break'
-alias .b='source ~/.bashrc && source ~/.bash_profile'
 
 # tmux 256 colors hack
 alias tmux="TERM=screen-256color-bce tmux"
@@ -77,14 +75,8 @@ alias tmux="TERM=screen-256color-bce tmux"
 # rename the current tab in terminal/iterm2
 rn() { export PROMPT_COMMAND="echo -ne \"\033]0;$1\007\""; }
 
-# Get a rough outline of a python file - show class & function declarations, block comments, first line of docstrings
-pyoutline() { egrep --color=auto '^[\t ]*class|^[\t ]*def|^[\t ]*###.+$|^[\t ]*""".+$' $1; } # apparently \s doesn't work so I use tab or space
-wcr() { wc -l `find . -type f | egrep "$1$"`; } # recursive word count, pass in the file extension
-
-alias ip='curl icanhazip.com'
-
 # create an empty new bash script
-bashscript() { touch $1; chmod a+x $1; echo -e "#!/bin/bash\n\n" > $1; vim $1; }
+generatebashscript() { touch $1; chmod a+x $1; echo -e "#!/bin/bash\n\n" > $1; vim $1; }
 
 # convert a simple yaml file to json
 yaml_file_as_json() { ruby -e 'require "yaml"; require "json"; puts JSON.dump(YAML.parse(open(File.expand_path("'"$1"'")).read).to_ruby)'; }
