@@ -37,9 +37,14 @@ alias ctags_python='ctags -R --languages=python --exclude=.git --exclude=node_mo
 # fzf (fuzzy file finder) option for vim - use ag as search source (which ignores .gitignore and .agignore files)
 export FZF_DEFAULT_COMMAND='ag -g ""'
 
-# brew bash completion
+# Bash Completion
+# This is where the older bash_completion wrapper script lived
 if [ -f `brew --prefix`/etc/bash_completion ]; then
 . `brew --prefix`/etc/bash_completion
+fi
+# This is the newer script for bash-completion@2
+if [ -f `brew --prefix`/share/bash-completion/bash_completion ]; then
+. `brew --prefix`/share/bash-completion/bash_completion
 fi
 
 # aws completion

@@ -12,6 +12,7 @@ Plug 'dcosson/vimux-nose-test2'
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go'
 Plug 'flowtype/vim-flow'
+Plug 'galooshi/vim-import-js' " First you need to `npm install -g import-js`
 Plug 'jgdavey/tslime.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -218,6 +219,38 @@ if has("autocmd")
     \| exe "normal g'\"" | endif
 endif
 
+" Helper to toggle the quickfix list
+function! GetBufferList()
+  redir =>buflist
+  silent! ls!
+  redir END
+  return buflist
+endfunction
+
+function! ToggleList(bufname, pfx)
+  let buflist = GetBufferList()
+  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(bufnum) != -1
+      exec(a:pfx.'close')
+      return
+    endif
+  endfor
+  if a:pfx == 'l' && len(getloclist(0)) == 0
+      echohl ErrorMsg
+      echo "Location List is Empty."
+      return
+  endif
+  let winnr = winnr()
+  exec(a:pfx.'open')
+  if winnr() != winnr
+    wincmd p
+  endif
+endfunction
+
+nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
+nmap <silent> <leader>e :call ToggleList("Quickfix List", 'q')<CR>
+
+
 "folding settings
 set foldmethod=indent   "fold based on indent
 set foldnestmax=10      "deepest fold is 10 levels
@@ -245,8 +278,8 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 " Linting options
 let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'jsx': ['eslint'],
+\   'javascript': ['eslint', 'flow-language-server'],
+\   'jsx': ['eslint', 'flow-language-server'],
 \   'python': ['flake8'],
 \   'ruby': ['ruby', 'rubocop'],
 \   'hcl': [],
@@ -264,9 +297,7 @@ let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_options = ' --parser babylon --single-quote --jsx-bracket-same-line --trailing-comma es5 --print-width 100'
 
 " Display Ale status in Airline
-call airline#parts#define_function('ALE', 'ALEGetStatusLine')
-call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
-let g:airline_section_error = airline#section#create_right(['ALE'])
+let g:airline#extensions#ale#enabled = 1
 
 nmap <Leader>e :ALENextWrap<CR>
 nmap <Leader>E :ALEPreviousWrap<CR>
@@ -288,7 +319,10 @@ augroup END
 " autocmd FileType javascript setlocal formatprg=prettier\ --write\ --single-quote\ --jsx-bracket-same-line\ --parser\ babylon\ --trailing-comma\ es5\ --print-width\ 100
 " let g:neoformat_try_formatprg = 1  " Use formatprg when available
 
-
+" Importjs options
+autocmd FileType javascript map <Leader>ii :ImportJSFix<CR>
+autocmd FileType javascript map <Leader>ij :ImportJSWord<CR>
+autocmd FileType javascript map <Leader>ig :ImportJSGoto<CR>
 
 " --- Vimux commands to run tests
 let g:vimux_nose_setup_cmd="echo 'run tests here'"
