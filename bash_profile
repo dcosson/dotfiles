@@ -52,26 +52,6 @@ if [ -f `brew --prefix`/bin/aws_completer ]; then
 complete -C aws_completer aws
 fi
 
-# EC2 Command Line Tools - not really using recently
-# export JAVA_HOME="`/usr/libexec/java_home -v 1.6`"
-# export EC2_PRIVATE_KEY="$(/bin/ls $HOME/.ec2/pk-*.pem)"
-# export EC2_CERT="$(/bin/ls $HOME/.ec2/cert-*.pem)"
-# export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
-
-
-### OSX-specific aliases
-# run local mongodb (from /usr/local) and put it in the background
-alias mongolocal='sudo mongod run --config /usr/local/etc/mongod.conf --fork && sleep 1 && tail -20 /usr/local/var/log/mongodb/mongod.log'
-
-# toggle show/hide hidden files in Finder
-alias showhidefileson='defaults write com.apple.Finder AppleShowAllFiles YES; killall -HUP Finder'
-alias showhidefilesoff='defaults write com.apple.Finder AppleShowAllFiles NO; killall -HUP Finder'
-
-
-### NPM Module common scripts
-alias karma='./node_modules/karma/bin/karma'
-alias karmaone='./node_modules/karma/bin/karma start --singleRun --browsers PhantomJS'
-
 ### Docker helpers
 alias dk='docker-compose'
 
@@ -82,17 +62,9 @@ filehashcmp() {
     if [ "$hash1" == "$hash2" ]; then echo "Files are the same"; else echo "Not the same"; fi
 }
 
-### Source other bash files with specific/private setups
+### Source another bash file for storing more specific local setup stuff
 if [ -f ~/.bash_profile_extensions ] ; then
    source ~/.bash_profile_extensions
-fi
-
-if [ -f ~/.bash_profile_venmo ] ; then
-    source ~/.bash_profile_venmo
-fi
-
-if [ -f ~/.bash_aws_credentials ] ; then
-    source ~/.bash_aws_credentials
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
