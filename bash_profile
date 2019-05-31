@@ -12,20 +12,28 @@ HISTSIZE=100000
 ###
 # the classic MySQL library path fix for OSX  (un-comment if installing mysql)
 # export LD_LIBRARY_PATH=/usr/local/mysql-5.5.19-osx10.6-x86_64/lib
-export PATH=/usr/local/bin:$PATH:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/share/npm/bin:~/.ec2/bin
+export PATH=/usr/local/bin:$PATH:/usr/local/sbin:$HOME/.rvm/bin:/usr/local/mysql/bin:/usr/local/share/npm/bin:~/.ec2/bin
 
 # VirtualEnvWrapper
 export WORKON_HOME=~/virtualenvs
-if [ -f /usr/local/bin/virtualenvwrapper.sh ] ; then source /usr/local/bin/virtualenvwrapper.sh; fi
+[ -f /usr/local/bin/virtualenvwrapper.sh ] && \. /usr/local/bin/virtualenvwrapper.sh
 
 # rbenv
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; else echo rbenv not installed; fi
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # pyenv
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; eval "$(pyenv virtualenv-init -)"; else echo pyenv not installed; fi
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; eval "$(pyenv virtualenv-init -)"; fi
 
 # nodenv
-if which nodenv > /dev/null; then eval "$(nodenv init -)"; else echo nodenv not installed; fi
+if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
+
+# rvm
+[ -d $HOME/.rvm ] && \. $HOME/.rvm/scripts/rvm
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # go path
 export GOPATH=$HOME/go
@@ -65,6 +73,10 @@ filehashcmp() {
 ### Source another bash file for storing more specific local setup stuff
 if [ -f ~/.bash_profile_extensions ] ; then
    source ~/.bash_profile_extensions
+fi
+
+if [ -f ~/.bash_secrets ] ; then
+   source ~/.bash_secrets
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
