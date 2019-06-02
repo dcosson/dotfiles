@@ -126,7 +126,8 @@ autocmd FileType html.handlebars SoftTab 2
 autocmd FileType css SoftTab 2
 autocmd FileType scss SoftTab 2
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType text set wrap linebreak
+" Softwrap lines in text file
+autocmd FileType text set wrap linebreak nolist formatoptions=
 
 augroup mkd
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
@@ -149,6 +150,9 @@ au BufRead,BufNewFile {*.less,*.sass} set ft=css
 au BufRead,BufNewFile *.us set ft=html "our underscore.js html templates
 au BufRead,BufNewFile {*.tfstate,*.tfstate.backup} set ft=json
 au BufRead,BufNewFile {Jenkinsfile} set ft=groovy
+
+" Default to plaintext
+autocmd BufEnter * if &filetype == "" | setlocal ft=text | endif
 
 " Open useful sidebars (taglist, nerdtree), and navigation tools
 nnoremap ,w :TlistToggle<CR>
