@@ -162,6 +162,10 @@ defaults write com.apple.dock orientation -string "right"
 # Automatically hide and show the Dock
 defaults write com.apple.dock autohide -bool true
 
+# Take a really long time (10 seconds) to show the dock when hidden, so the
+# right side of the screen is not completely unusable.
+defaults write com.apple.dock autohide-delay -float "10.0"
+
 # Small amount of dock magnification on hover
 defaults write com.apple.dock magnification -bool true
 defaults write com.apple.dock largesize -float "50.0"
