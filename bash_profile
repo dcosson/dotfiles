@@ -11,8 +11,7 @@ HISTSIZE=100000
 ### Path-ey things
 ###
 # the classic MySQL library path fix for OSX  (un-comment if installing mysql)
-# export LD_LIBRARY_PATH=/usr/local/mysql-5.5.19-osx10.6-x86_64/lib
-export PATH=/usr/local/bin:$PATH:/usr/local/sbin:$HOME/.rvm/bin:/usr/local/mysql/bin:/usr/local/share/npm/bin:~/.ec2/bin
+# export LD_LIBRARY_PATH=/usr/local/mysql-5.5.19-osx10.6-x86_64/lib export PATH=/usr/local/bin:$PATH:/usr/local/sbin:$HOME/.rvm/bin:/usr/local/mysql/bin:/usr/local/share/npm/bin:~/.ec2/bin
 
 # VirtualEnvWrapper
 export WORKON_HOME=~/virtualenvs
@@ -27,13 +26,13 @@ if which pyenv > /dev/null; then eval "$(pyenv init -)"; eval "$(pyenv virtualen
 # nodenv
 if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
 
-# rvm
-[ -d $HOME/.rvm ] && \. $HOME/.rvm/scripts/rvm
-
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# rvm
+[ -d $HOME/.rvm ] && \. $HOME/.rvm/scripts/rvm
 
 # go path
 export GOPATH=$HOME/go
@@ -62,6 +61,9 @@ fi
 
 ### Docker helpers
 alias dk='docker-compose'
+
+### Ruby/rails helpers
+alias be='bundle exec'
 
 # Compare sha256 hashes of two files
 filehashcmp() {

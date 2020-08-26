@@ -1,5 +1,6 @@
 " Vim plugins
 call plug#begin('~/.vim/plugged')
+Plug 'Chiel92/vim-autoformat'
 Plug 'altercation/vim-colors-solarized'
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -7,7 +8,6 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ }
 Plug 'b4b4r07/vim-hcl'
 Plug 'benmills/vimux'
-Plug 'w0rp/ale'
 Plug 'dcosson/vimux-nose-test2'
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go'
@@ -17,12 +17,14 @@ Plug 'jgdavey/tslime.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'kchmck/vim-coffee-script'
+Plug 'leafgarland/typescript-vim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'mxw/vim-jsx'
 Plug 'nvie/vim-flake8'
 Plug 'pangloss/vim-javascript'
 Plug 'pgr0ss/vimux-ruby-test'
 Plug 'puppetlabs/puppet-syntax-vim'
+Plug 'Quramy/tsuquyomi'
 Plug 'scrooloose/nerdtree'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-abolish'
@@ -33,6 +35,7 @@ Plug 'vim-scripts/Pydiction'
 Plug 'vim-scripts/Rename'
 Plug 'vim-scripts/mru.vim'
 Plug 'vim-scripts/taglist.vim'
+Plug 'w0rp/ale'
 call plug#end()
 colorscheme tomorrow-night-dcosson
 
@@ -119,6 +122,11 @@ map <Leader>si :call LanguageClient#textDocument_hover()<CR>
 map <Leader>sj :call LanguageClient#textDocument_definition()<CR>
 map <Leader>sl :call LanguageClient#textDocument_documentSymbol()<CR>
 
+" Autoformatters
+" let g:formatdef_rubocop = "'bundle exec rubocop --auto-correct -o /dev/null -s '.bufname('%').' \| sed -n 2,\\$p'"
+" let g:formatters_ruby = ['rubocop']
+" rubocop is often too slow to do synchronously on save
+" autocmd FileType ruby autocmd BufWrite * :Autoformat
 
 autocmd FileType html SoftTab 2
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
@@ -256,10 +264,10 @@ nmap <silent> <leader>e :call ToggleList("Quickfix List", 'q')<CR>
 
 
 "folding settings
-set foldmethod=indent   "fold based on indent
-set foldnestmax=10      "deepest fold is 10 levels
-set foldlevel=1
-set foldlevelstart=99
+" set foldmethod=indent   "fold based on indent
+" set foldnestmax=10      "deepest fold is 10 levels
+" set foldlevel=1
+" set foldlevelstart=99
 
 " Taglist options
 let g:Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
@@ -293,18 +301,21 @@ let g:ale_lint_on_text_changed = 'normal'
 
 " Fixer options
 let g:ale_fixers = {
-\   'javascript': ['prettier', 'remove_trailing_lines'],
+\   'javascript': ['eslint', 'remove_trailing_lines'],
+\   'typescript': ['eslint', 'remove_trailing_lines'],
 \   'ruby': ['rubocop', 'remove_trailing_lines'],
 \}
 let g:ale_fix_on_save = 1
 " language-specific options
-let g:ale_javascript_prettier_options = ' --parser babylon --single-quote --jsx-bracket-same-line --trailing-comma es5 --print-width 100'
+" let g:ale_javascript_prettier_options = ''
+let g:ale_ruby_rubocop_executable = 'bundle'
 
 " Display Ale status in Airline
 let g:airline#extensions#ale#enabled = 1
 
 nmap <Leader>e :ALENextWrap<CR>
 nmap <Leader>E :ALEPreviousWrap<CR>
+nmap <Leader>d :ALEHover<CR>
 
 " Airline perf fix
 " make Esc happen without waiting for timeoutlen
@@ -315,13 +326,6 @@ augroup FastEscape
   au InsertLeave * set timeoutlen=1000
 augroup END
 
-
-" """
-" """ Neoformat options
-" """
-" autocmd BufWritePre *.js Neoformat
-" autocmd FileType javascript setlocal formatprg=prettier\ --write\ --single-quote\ --jsx-bracket-same-line\ --parser\ babylon\ --trailing-comma\ es5\ --print-width\ 100
-" let g:neoformat_try_formatprg = 1  " Use formatprg when available
 
 " Importjs options
 autocmd FileType javascript map <Leader>ii :ImportJSFix<CR>
