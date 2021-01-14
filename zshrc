@@ -42,7 +42,9 @@ parse_git_branch() {
   git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/(\1$(parse_git_dirty))/"
 }
 current_virtualenv() {
-  echo "$(basename $(dirname $VIRTUAL_ENV 2>/dev/null) 2>/dev/null)/$(basename $VIRTUAL_ENV 2>/dev/null)"
+  if [ -n "$VIRTUAL_ENV" ]; then
+    echo "$(basename $(dirname $VIRTUAL_ENV 2>/dev/null) 2>/dev/null)/$(basename $VIRTUAL_ENV 2>/dev/null)"
+  fi
 }
 current_kubectl_context() {
   echo "$(kubectl config current-context 2>/dev/null)"
@@ -60,19 +62,16 @@ function __prompt_command() {
   PS1+="%F{green}%n %F{white}@ %F{yellow}%m%f"
   # kubectl context, if we're in one
   _current_kubectl_context="$(current_kubectl_context)"
-  if [ -n "$_current_kubectl_context" ]
-  then
+  if [ -n "$_current_kubectl_context" ]; then
     PS1+=" %F{magenta}kube:$_current_kubectl_context:$(current_kubectl_context_namespace)%f"
   fi
   # python virtualenv, if we're in one
   _current_virtualenv="$(current_virtualenv)"
-  if [ -n "$_current_virtualenv" ]
-  then
+  if [ -n "$_current_virtualenv" ]; then
     PS1+=" %F{blue}($_current_virtualenv)%f"
   fi
   # sun or rain based on last exit code
-  if [ $LAST_EXIT_CODE = 0 ]
-  then
+  if [ $LAST_EXIT_CODE = 0 ]; then
     PS1+=" %F{green}☀%f"
   else
     PS1+=" %F{blue}☁%f"
@@ -80,8 +79,11 @@ function __prompt_command() {
   PS1+=$'\n'
   # pwd, git branch and prompt
   PS1+="%F{magenta}%~%f "
-  PS1+="$(parse_git_branch)"
-  PS1+=" %# "
+  _parse_git_branch="$(parse_git_branch)"
+  if [ -n "$_parse_git_branch" ]; then
+    PS1+="$_parse_git_branch "
+  fi
+  PS1+="%# "
 }
 precmd() { eval __prompt_command }
 # PROMPT=$'\n'
