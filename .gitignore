@@ -3,3 +3,9 @@
 
 # Build dir for vim-plug plugins
 vim/plugged
+
+# dir for python black config
+vim/black
+
+# Move instead of overwriting
+old_dotfiles

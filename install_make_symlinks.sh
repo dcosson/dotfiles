@@ -10,13 +10,12 @@ declare -a dotfile_whitelist=(
   .gitconfig-shared\
   .gitignore\
   .inputrc\
-  .screenrc\
-  .tmux.conf\
   .vim\
   .vimrc\
 )
 
-backup_dir="${HOME}/old_dotfiles"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+backup_dir="${DIR}/old_dotfiles"
 
 function create_symlink {
   echo "created symlink: $2 -> $1"
