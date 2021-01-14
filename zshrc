@@ -1,9 +1,12 @@
 # Danny Cosson ZSH config
 
-# Completion system
-autoload -Uz compinit
-compinit
+# Turn on completion, using homebrew zsh-completions
+if type brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 
+    autoload -Uz compinit
+    compinit
+fi
 
 # fzf fuzzy search setup
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
