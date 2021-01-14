@@ -2,15 +2,11 @@
 call plug#begin('~/.vim/plugged')
 Plug 'Chiel92/vim-autoformat'
 Plug 'altercation/vim-colors-solarized'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
 Plug 'b4b4r07/vim-hcl'
 Plug 'benmills/vimux'
 Plug 'dcosson/vimux-nose-test2'
 Plug 'easymotion/vim-easymotion'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'flowtype/vim-flow'
 Plug 'galooshi/vim-import-js' " First you need to `npm install -g import-js`
 Plug 'jgdavey/tslime.vim'
@@ -23,6 +19,7 @@ Plug 'mxw/vim-jsx'
 Plug 'nvie/vim-flake8'
 Plug 'pangloss/vim-javascript'
 Plug 'pgr0ss/vimux-ruby-test'
+Plug 'psf/black', { 'branch': 'stable' }
 Plug 'puppetlabs/puppet-syntax-vim'
 Plug 'Quramy/tsuquyomi'
 Plug 'scrooloose/nerdtree'
@@ -36,8 +33,25 @@ Plug 'vim-scripts/Rename'
 Plug 'vim-scripts/mru.vim'
 Plug 'vim-scripts/taglist.vim'
 Plug 'w0rp/ale'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 call plug#end()
 colorscheme tomorrow-night-dcosson
+
+let g:deoplete#enable_at_startup = 1
+" Close Preview window in deoplete when done typing 
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
+" Uncomment following options to make deoplete work like default vim complete
+" let g:deoplete#disable_auto_complete = 1
+" " inoremap <expr> <C-n>  deoplete#manual_complete()
+
+" Deoplete needs to point to the same python path vim installed with, this works with homebrew vim
+let g:python3_host_prog = '/usr/local/bin/python3'
 
 "Simple switching between hard tabs and spaces
 command! -nargs=* HardTab setlocal noexpandtab shiftwidth=4
@@ -108,19 +122,6 @@ autocmd FileType yaml set expandtab shiftwidth=2 softtabstop=2
 
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd Filetype javascript set expandtab tabstop=2 softtabstop=2 shiftwidth=2
-let g:flow#enable = 0
-let g:flow#omnifunc = 1
-" let g:flow#flowpath = './dev-scripts/flow-proxy.sh'
-" let g:ale_javascript_flow_executable = './dev-scripts/flow-proxy.sh'
-
-" LanguageClient LSP protocol
-let g:LanguageClient_serverCommands = {
-\ 'javascript.jsx': ['flow-language-server', '--stdio', '--try-flow-bin', '--no-auto-download'],
-\ }
-let g:LanguageClient_autoStart = 1
-map <Leader>si :call LanguageClient#textDocument_hover()<CR>
-map <Leader>sj :call LanguageClient#textDocument_definition()<CR>
-map <Leader>sl :call LanguageClient#textDocument_documentSymbol()<CR>
 
 " Autoformatters
 " let g:formatdef_rubocop = "'bundle exec rubocop --auto-correct -o /dev/null -s '.bufname('%').' \| sed -n 2,\\$p'"
@@ -144,7 +145,6 @@ augroup END
 autocmd FileType markdown set formatoptions=cqln
 
 " vim-javascript and vim-jsx settings
-let g:javascript_plugin_flow = 1
 let g:jsx_ext_required = 0
 
 
@@ -290,20 +290,33 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 " Linting options
 let g:ale_linters = {
-\   'javascript': ['eslint', 'flow-language-server'],
-\   'jsx': ['eslint', 'flow-language-server'],
-\   'python': ['flake8'],
+\   'javascript': ['eslint'],
+\   'jsx': ['eslint'],
+\   'python': ['python', 'flake8', 'pyls'],
 \   'ruby': ['ruby', 'rubocop'],
 \   'hcl': [],
+\   'go': ['gopls'],
 \}
 " Only lint on save or when switching back to normal mode, not every keystroke in insert mode
 let g:ale_lint_on_text_changed = 'normal'
 
+let g:ale_python_pyls_config = {
+\   'pyls': {
+\     'plugins': {
+\       'pycodestyle': {
+\         'enabled': v:false
+\       }
+\     }
+\   },
+\ }
+
 " Fixer options
 let g:ale_fixers = {
-\   'javascript': ['eslint', 'remove_trailing_lines'],
-\   'typescript': ['eslint', 'remove_trailing_lines'],
-\   'ruby': ['rubocop', 'remove_trailing_lines'],
+\   'javascript': ['eslint', 'remove_trailing_lines', 'trim_whitespace'],
+\   'typescript': ['eslint', 'remove_trailing_lines', 'trim_whitespace'],
+\   'python': ['black', 'isort', 'remove_trailing_lines', 'trim_whitespace'],
+\   'ruby': ['rubocop', 'remove_trailing_lines', 'trim_whitespace'],
+\   'go': ['gopls', 'remove_trailing_lines', 'trim_whitespace'],
 \}
 let g:ale_fix_on_save = 1
 " language-specific options
@@ -316,6 +329,7 @@ let g:airline#extensions#ale#enabled = 1
 nmap <Leader>e :ALENextWrap<CR>
 nmap <Leader>E :ALEPreviousWrap<CR>
 nmap <Leader>d :ALEHover<CR>
+nmap gd :ALEGoToDefinition<CR>
 
 " Airline perf fix
 " make Esc happen without waiting for timeoutlen

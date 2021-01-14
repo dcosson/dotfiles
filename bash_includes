@@ -3,7 +3,7 @@
 ###
 export EDITOR=vim
 HISTFILESIZE=100000
-HISTSIZE=10000
+HISTSIZE=20000
 export HISTCONTROL=ignoredups
 export HISTCONTROL=ignoreboth  # ignore same sucessive entries
 shopt -s histappend
@@ -24,7 +24,13 @@ parse_git_branch() {
   git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/(\1$(parse_git_dirty))/"
 }
 current_virtualenv() {
-  echo `basename $VIRTUAL_ENV 2>/dev/null`
+  echo "$(basename $(dirname $VIRTUAL_ENV 2>/dev/null) 2>/dev/null)/$(basename $VIRTUAL_ENV 2>/dev/null)"
+}
+current_kubectl_context() {
+  echo "$(kubectl config current-context 2>/dev/null)"
+}
+current_kubectl_context_namespace() {
+  echo "$(kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null || echo 'N/A')"
 }
 function __prompt_command() {
   local LAST_EXIT_CODE="$?"
@@ -44,6 +50,11 @@ function __prompt_command() {
   PS1="\n"
   # username @ hostname, then indicate previous exit code
   PS1+="${txtgreen}\u$DIM${txtend} ${txtwhite}@${txtend} ${txtorange}\h${txtend}"
+  # kubectl context, if we're in one
+  if [ -n "$(current_kubectl_context)" ]
+  then
+    PS1+=" ${txtpurple}kube:$(current_kubectl_context):$(current_kubectl_context_namespace)${txtend}"
+  fi
   # python virtualenv, if we're in one
   if [ -n "$(current_virtualenv)" ]
   then

@@ -10,26 +10,18 @@ HISTSIZE=100000
 ###
 ### Path-ey things
 ###
-# the classic MySQL library path fix for OSX  (un-comment if installing mysql)
-# export LD_LIBRARY_PATH=/usr/local/mysql-5.5.19-osx10.6-x86_64/lib export PATH=/usr/local/bin:$PATH:/usr/local/sbin:$HOME/.rvm/bin:/usr/local/mysql/bin:/usr/local/share/npm/bin:~/.ec2/bin
-
-# VirtualEnvWrapper
-export WORKON_HOME=~/virtualenvs
-[ -f /usr/local/bin/virtualenvwrapper.sh ] && \. /usr/local/bin/virtualenvwrapper.sh
-
 # rbenv
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+# if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # pyenv
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; eval "$(pyenv virtualenv-init -)"; fi
+# if which pyenv > /dev/null; then eval "$(pyenv init -)"; eval "$(pyenv virtualenv-init -)"; fi
 
 # nodenv
 if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
 
 # nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$HOME/.nvm/nvm.sh" ] && \. "$HOME/.nvm/nvm.sh"  # This loads nvm
+[ -s "$HOME/.nvm/bash_completion" ] && \. "$HOME/.nvm/bash_completion"  # This loads nvm bash_completion
 
 # rvm
 [ -d $HOME/.rvm ] && \. $HOME/.rvm/scripts/rvm
@@ -45,14 +37,7 @@ alias ctags_python='ctags -R --languages=python --exclude=.git --exclude=node_mo
 export FZF_DEFAULT_COMMAND='ag -g ""'
 
 # Bash Completion
-# This is where the older bash_completion wrapper script lived
-if [ -f `brew --prefix`/etc/bash_completion ]; then
-. `brew --prefix`/etc/bash_completion
-fi
-# This is the newer script for bash-completion@2
-if [ -f `brew --prefix`/share/bash-completion/bash_completion ]; then
-. `brew --prefix`/share/bash-completion/bash_completion
-fi
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 
 # aws completion
 if [ -f `brew --prefix`/bin/aws_completer ]; then
@@ -71,6 +56,9 @@ filehashcmp() {
     hash2="$(shasum -a 256 "$2" | awk '{print $1}')"
     if [ "$hash1" == "$hash2" ]; then echo "Files are the same"; else echo "Not the same"; fi
 }
+
+# Enter current directory/project's virtualenv
+alias venvactivate='source $([ -d .env3 ] && printf ".env3" || printf ".virtualenv")/bin/activate'
 
 ### Source another bash file for storing more specific local setup stuff
 if [ -f ~/.bash_profile_extensions ] ; then
