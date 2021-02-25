@@ -39,7 +39,9 @@ parse_git_dirty() {
   [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working tree clean" ]] && echo "*"
 }
 parse_git_branch() {
-  git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/(\1$(parse_git_dirty))/"
+  # git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/(\1$(parse_git_dirty))/"
+  # Not showing status bc it's too slow in large repos
+  git branch --show-current 2> /dev/null | sed -e "s/\(.*\)/(\1 ?)/"
 }
 current_virtualenv() {
   if [ -n "$VIRTUAL_ENV" ]; then
