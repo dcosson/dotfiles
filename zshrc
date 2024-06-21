@@ -1,5 +1,8 @@
 # Danny Cosson ZSH config
 
+# Set PATH, MANPATH, etc., for Homebrew.
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Turn on completion, using homebrew zsh-completions
 if type brew &>/dev/null; then
     FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
@@ -22,12 +25,21 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_REDUCE_BLANKS
 setopt HIST_VERIFY
 
+# anyenv
+eval "$(anyenv init -)"
+
 # Helper functions
 filehashcmp() {
     hash1="$(shasum -a 256 "$1" | awk '{print $1}')"
     hash2="$(shasum -a 256 "$2" | awk '{print $1}')"
     if [ "$hash1" == "$hash2" ]; then echo "Files are the same"; else echo "Not the same"; fi
 }
+
+# Useful Aliases
+alias gg='git grep -n --color --heading --break'
+
+# tmux 256 colors hack
+alias tmux="TERM=screen-256color-bce tmux"
 
 ### Source additional files, to allow for custom config on different machines
 [[ -f ~/.zshrc_extensions ]] && source ~/.zshrc_extensions
@@ -39,9 +51,9 @@ parse_git_dirty() {
   [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working tree clean" ]] && echo "*"
 }
 parse_git_branch() {
-  # git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/(\1$(parse_git_dirty))/"
-  # Not showing status bc it's too slow in large repos
-  git branch --show-current 2> /dev/null | sed -e "s/\(.*\)/(\1 ?)/"
+  git branch --show-current 2> /dev/null | sed -e "s/\(.*\)/(\1$(parse_git_dirty))/"
+  # Optionally - don't show status bc it's too slow in large repos
+  # git branch --show-current 2> /dev/null | sed -e "s/\(.*\)/(\1 ?)/"
 }
 current_virtualenv() {
   if [ -n "$VIRTUAL_ENV" ]; then

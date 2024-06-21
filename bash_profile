@@ -14,7 +14,7 @@ HISTSIZE=100000
 # if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # pyenv
-# if which pyenv > /dev/null; then eval "$(pyenv init -)"; eval "$(pyenv virtualenv-init -)"; fi
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; eval "$(pyenv virtualenv-init -)"; fi
 
 # nodenv
 if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi

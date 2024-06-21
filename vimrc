@@ -14,8 +14,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'kchmck/vim-coffee-script'
 Plug 'leafgarland/typescript-vim'
-Plug 'mustache/vim-mustache-handlebars'
 Plug 'mxw/vim-jsx'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nvie/vim-flake8'
 Plug 'pangloss/vim-javascript'
 Plug 'pgr0ss/vimux-ruby-test'
@@ -33,25 +33,25 @@ Plug 'vim-scripts/Rename'
 Plug 'vim-scripts/mru.vim'
 Plug 'vim-scripts/taglist.vim'
 Plug 'w0rp/ale'
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
+" if has('nvim')
+"   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" else
+"   Plug 'Shougo/deoplete.nvim'
+"   Plug 'roxma/nvim-yarp'
+"   Plug 'roxma/vim-hug-neovim-rpc'
+" endif
 call plug#end()
 colorscheme tomorrow-night-dcosson
 
-let g:deoplete#enable_at_startup = 1
-" Close Preview window in deoplete when done typing 
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
+" let g:deoplete#enable_at_startup = 1
+" " Close Preview window in deoplete when done typing 
+" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
 " Uncomment following options to make deoplete work like default vim complete
 " let g:deoplete#disable_auto_complete = 1
 " " inoremap <expr> <C-n>  deoplete#manual_complete()
 
 " Deoplete needs to point to the same python path vim installed with, this works with homebrew vim
-let g:python3_host_prog = '/usr/local/bin/python3'
+" let g:python3_host_prog = '/usr/local/bin/python3'
 
 "Simple switching between hard tabs and spaces
 command! -nargs=* HardTab setlocal noexpandtab shiftwidth=4
