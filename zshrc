@@ -55,6 +55,7 @@ parse_git_branch() {
   # Optionally - don't show status bc it's too slow in large repos
   # git branch --show-current 2> /dev/null | sed -e "s/\(.*\)/(\1 ?)/"
 }
+
 current_virtualenv() {
   if [ -n "$VIRTUAL_ENV" ]; then
     echo "$(basename $(dirname $VIRTUAL_ENV 2>/dev/null) 2>/dev/null)/$(basename $VIRTUAL_ENV 2>/dev/null)"

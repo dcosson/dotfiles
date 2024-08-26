@@ -270,7 +270,7 @@ nmap <silent> <leader>e :call ToggleList("Quickfix List", 'q')<CR>
 " set foldlevelstart=99
 
 " Taglist options
-let g:Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
+let g:Tlist_Ctags_Cmd = '/opt/homebrew/bin/ctags'
 let Tlist_Use_Right_Window = 1
 let Tlist_WinWidth = 45
 
