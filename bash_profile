@@ -70,3 +70,6 @@ if [ -f ~/.bash_secrets ] ; then
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+if [ -f ~/.cargo/env ] ; then
+   source ~/.cargo/env
+fi
