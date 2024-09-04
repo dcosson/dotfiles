@@ -99,9 +99,11 @@ if type brew &>/dev/null; then
     compinit
 fi
 
-# fzf fuzzy search setup
-[[ ! -f ~/.fzf.zsh ]] || source ~/.fzf.zsh
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+# Set up fzf key bindings and fuzzy completion
+if fzf --help &>/dev/null; then
+  export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+  source <(fzf --zsh)
+fi
 
 # anyenv
 if type anyenv &>/dev/null; then
