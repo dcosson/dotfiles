@@ -149,6 +149,8 @@ fi
 
 # Useful Aliases
 alias gg='git grep -n --color --heading --break'
+bindkey '	' autosuggest-accept # zsh-autosuggestions use tab instead of right arrow
+
 
 ### Source additional files, to allow for custom config on different machines
 [[ ! -f ~/.zshrc_extensions ]] || source ~/.zshrc_extensions
