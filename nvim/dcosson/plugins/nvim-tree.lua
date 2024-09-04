@@ -30,10 +30,12 @@ return {
     },
     -- ignore certain files
     filters = {
-      custom = { ".DS_Store" },
+      custom = { ".DS_Store", ".git" },
     },
     git = {
-      ignore = false,
+      enable = true,
+      ignore = true,
+      timeout = 500,
     },
   },
   config = function(_, opts)
