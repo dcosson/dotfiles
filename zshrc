@@ -1,7 +1,95 @@
-# Danny Cosson ZSH config
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+
+# Path to your Oh My Zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time Oh My Zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+
+# Uncomment the following line to change how often to auto-update (in days).
+# zstyle ':omz:update' frequency 13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+# plugins=(git fzf zsh-autosuggestions)
+plugins=(git fzf zsh-autosuggestions zsh-syntax-highlighting)
+
+source $ZSH/oh-my-zsh.sh
+
+########################################
+### User configuration
+########################################
+
+# export MANPATH="/usr/local/man:$MANPATH"
 
 # Set PATH, MANPATH, etc., for Homebrew.
-eval "$(/opt/homebrew/bin/brew shellenv)"
+[[ ! -f /opt/homebrew/bin/brew ]] || eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Turn on completion, using homebrew zsh-completions
 if type brew &>/dev/null; then
@@ -12,7 +100,17 @@ if type brew &>/dev/null; then
 fi
 
 # fzf fuzzy search setup
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[[ ! -f ~/.fzf.zsh ]] || source ~/.fzf.zsh
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+
+# anyenv
+if type anyenv &>/dev/null; then
+  eval "$(anyenv init -)"
+fi
+
+# cargo
+[[ ! -f ~/.cargo/env ]] || source ~/.cargo/env
+
 
 # zsh settings for history
 # HISTORY_IGNORE="(ls|[bf]g|exit|reset|clear|cd|cd ..|cd..)"
@@ -25,85 +123,33 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_REDUCE_BLANKS
 setopt HIST_VERIFY
 
-# anyenv
-eval "$(anyenv init -)"
+# You may need to manually set your language environment
+export LANG=en_US.UTF-8
 
-# Helper functions
-filehashcmp() {
-    hash1="$(shasum -a 256 "$1" | awk '{print $1}')"
-    hash2="$(shasum -a 256 "$2" | awk '{print $1}')"
-    if [ "$hash1" == "$hash2" ]; then echo "Files are the same"; else echo "Not the same"; fi
-}
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Compilation flags
+# export ARCHFLAGS="-arch $(uname -m)"
+
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
+# For a full list of active aliases, run `alias`.
 
 # Useful Aliases
 alias gg='git grep -n --color --heading --break'
 
-# tmux 256 colors hack
-alias tmux="TERM=screen-256color-bce tmux"
-
 ### Source additional files, to allow for custom config on different machines
-[[ -f ~/.zshrc_extensions ]] && source ~/.zshrc_extensions
-[[ -f ~/.zshrc_secrets ]] && source ~/.zshrc_secrets
-
-
-# Prompt setup
-parse_git_dirty() {
-  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working tree clean" ]] && echo "*"
-}
-parse_git_branch() {
-  git branch --show-current 2> /dev/null | sed -e "s/\(.*\)/(\1$(parse_git_dirty))/"
-  # Optionally - don't show status bc it's too slow in large repos
-  # git branch --show-current 2> /dev/null | sed -e "s/\(.*\)/(\1 ?)/"
-}
-
-current_virtualenv() {
-  if [ -n "$VIRTUAL_ENV" ]; then
-    echo "$(basename $(dirname $VIRTUAL_ENV 2>/dev/null) 2>/dev/null)/$(basename $VIRTUAL_ENV 2>/dev/null)"
-  fi
-}
-current_kubectl_context() {
-  echo "$(kubectl config current-context 2>/dev/null)"
-}
-current_kubectl_context_namespace() {
-  echo "$(kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null || echo 'N/A')"
-}
-function __prompt_command() {
-  local LAST_EXIT_CODE="$?"
-
-  ### Define PS1
-  # extra vertical space
-  PS1=$'\n'
-  # username @ hostname, then indicate previous exit code
-  PS1+="%F{green}%n %F{white}@ %F{yellow}%m%f"
-  # kubectl context, if we're in one
-  _current_kubectl_context="$(current_kubectl_context)"
-  if [ -n "$_current_kubectl_context" ]; then
-    PS1+=" %F{magenta}kube:$_current_kubectl_context:$(current_kubectl_context_namespace)%f"
-  fi
-  # python virtualenv, if we're in one
-  _current_virtualenv="$(current_virtualenv)"
-  if [ -n "$_current_virtualenv" ]; then
-    PS1+=" %F{blue}($_current_virtualenv)%f"
-  fi
-  # sun or rain based on last exit code
-  if [ $LAST_EXIT_CODE = 0 ]; then
-    PS1+=" %F{green}☀%f"
-  else
-    PS1+=" %F{blue}☁%f"
-  fi
-  PS1+=$'\n'
-  # pwd, git branch and prompt
-  PS1+="%F{magenta}%~%f "
-  _parse_git_branch="$(parse_git_branch)"
-  if [ -n "$_parse_git_branch" ]; then
-    PS1+="$_parse_git_branch "
-  fi
-  PS1+="%# "
-}
-precmd() { eval __prompt_command }
-# PROMPT=$'\n'
-# # Top line: user @ host kube-context (virtualenv) last-command-status
-# PROMPT+="%F{green}%n %F{white}@ %F{yellow}%m %f"
-# PROMPT+=$'\n'
-# PROMPT+="%F{magenta}%~%f %# "
-# export PROMPT
+[[ ! -f ~/.zshrc_extensions ]] || source ~/.zshrc_extensions
+[[ ! -f ~/.zshrc_secrets ]] || source ~/.zshrc_secrets
