@@ -29,8 +29,8 @@ return {
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-y>"] = cmp.mapping.confirm({ select = false }),
+        ["<C-e>"] = cmp.mapping.abort(), -- close completion window 
         ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
-        ["<Esc>"] = cmp.mapping.abort(), -- close completion window 
       }),
       -- sources for autocompletion
       sources = cmp.config.sources({
