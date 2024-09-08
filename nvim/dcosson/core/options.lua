@@ -21,8 +21,8 @@ vim.opt.mouse = "a"
 vim.opt.showmode = false
 
 -- line wrap
-opt.wrap = false
-opt.breakindent = false -- if using wrap, can set this true to match wrap to indent level
+opt.wrap = true
+opt.breakindent = true -- if using wrap, can set this true to match wrap to indent level
 
 -- backspace
 opt.backspace = "indent,eol,start"

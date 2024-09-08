@@ -13,7 +13,7 @@ return {
 			},
 		},
 		view = {
-			width = 55,
+			width = 35,
 			relativenumber = true,
 		},
 		-- show indent levels folder & better arrow icons
@@ -47,13 +47,29 @@ return {
 			ignore = true,
 			timeout = 500,
 		},
+		on_attach = function(bufnr)
+			local api = require("nvim-tree.api")
+
+			local function attach_opts(desc)
+				return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+			end
+
+			-- default mappings within nvim-tree window
+			api.config.mappings.default_on_attach(bufnr)
+
+			-- custom mappings within nvim-tree window
+			-- I want the window picker available but I don't use it that often so Enter
+			-- should skip it, explicitly trigger it with "p" default mapping
+			vim.keymap.set("n", "<CR>", api.node.open.no_window_picker, attach_opts("Open"))
+			vim.keymap.set("n", "<C-P>", api.node.open.edit, attach_opts("Open with Window [P]icker"))
+			vim.keymap.set("n", "?", api.tree.toggle_help, attach_opts("Help"))
+		end,
 	},
 	config = function(_, opts)
 		require("nvim-tree").setup(opts)
 
 		-- Setup keymaps
 		vim.keymap.set("n", "<leader>W", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" }) -- toggle file explorer
-		vim.keymap.set("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" }) -- toggle file explorer
 		vim.keymap.set(
 			"n",
 			"<leader>ef",
