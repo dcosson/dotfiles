@@ -5,7 +5,7 @@ vim.g.loaded_netrwPlugin = 1
 local opt = vim.opt
 
 -- set how linenumbers show up
-opt.relativenumber = true
+opt.relativenumber = false
 opt.number = true
 
 -- tabs & indentation

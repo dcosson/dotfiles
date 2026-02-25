@@ -4,16 +4,21 @@ return {
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
-		{ "folke/neodev.nvim", opts = {} },
+		{
+			"folke/lazydev.nvim",
+			ft = "lua",
+			opts = {
+				library = {
+					-- See the configuration section for more details
+					-- Load luvit types when the `vim.uv` word is found
+					{ path = "luvit-meta/library", words = { "vim%.uv" } },
+				},
+			},
+		},
+		{ "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
 		"j-hui/fidget.nvim",
 	},
 	config = function()
-		-- import lspconfig plugin
-		local lspconfig = require("lspconfig")
-
-		-- import mason_lspconfig plugin
-		local mason_lspconfig = require("mason-lspconfig")
-
 		-- import cmp-nvim-lsp plugin
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
@@ -79,70 +84,59 @@ return {
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
 
-		mason_lspconfig.setup_handlers({
-			-- default handler for installed servers
-			function(server_name)
-				lspconfig[server_name].setup({
-					capabilities = capabilities,
-				})
-			end,
-			["svelte"] = function()
-				-- configure svelte server
-				lspconfig["svelte"].setup({
-					capabilities = capabilities,
-					on_attach = function(client, _)
-						vim.api.nvim_create_autocmd("BufWritePost", {
-							pattern = { "*.js", "*.ts" },
-							callback = function(ctx)
-								-- Here use ctx.match instead of ctx.file
-								client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
-							end,
-						})
-					end,
-				})
-			end,
-			["graphql"] = function()
-				-- configure graphql language server
-				lspconfig["graphql"].setup({
-					capabilities = capabilities,
-					filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
-				})
-			end,
-			["emmet_ls"] = function()
-				-- configure emmet language server
-				lspconfig["emmet_ls"].setup({
-					capabilities = capabilities,
-					filetypes = {
-						"html",
-						"typescriptreact",
-						"javascriptreact",
-						"css",
-						"sass",
-						"scss",
-						"less",
-						"svelte",
-					},
-				})
-			end,
-			["lua_ls"] = function()
-				-- configure lua server (with special settings)
-				lspconfig["lua_ls"].setup({
-					capabilities = capabilities,
-					settings = {
-						Lua = {
-							runtime = {
-								version = "LuaJIT",
-							},
-							diagnostics = {
-								globals = { "vim" },
-							},
-							completion = {
-								callSnippet = "Replace",
-							},
+		local servers = {
+			ts_ls = {},
+			html = {},
+			cssls = {},
+			tailwindcss = {},
+			pyright = {},
+			svelte = {
+				on_attach = function(client, _)
+					vim.api.nvim_create_autocmd("BufWritePost", {
+						pattern = { "*.js", "*.ts" },
+						callback = function(ctx)
+							-- Here use ctx.match instead of ctx.file
+							client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
+						end,
+					})
+				end,
+			},
+			graphql = {
+				filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
+			},
+			emmet_ls = {
+				filetypes = {
+					"html",
+					"typescriptreact",
+					"javascriptreact",
+					"css",
+					"sass",
+					"scss",
+					"less",
+					"svelte",
+				},
+			},
+			lua_ls = {
+				settings = {
+					Lua = {
+						runtime = {
+							version = "LuaJIT",
+						},
+						diagnostics = {
+							globals = { "vim" },
+						},
+						completion = {
+							callSnippet = "Replace",
 						},
 					},
-				})
-			end,
-		})
+				},
+			},
+		}
+
+		for server, opts in pairs(servers) do
+			opts.capabilities = vim.tbl_deep_extend("force", {}, capabilities, opts.capabilities or {})
+			vim.lsp.config(server, opts)
+			vim.lsp.enable(server)
+		end
 	end,
 }

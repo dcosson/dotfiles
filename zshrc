@@ -6,7 +6,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+# Note: $HOME/bin and $HOME/.local/bin are added after anyenv/nodenv init below,
+# so they take precedence over nodenv shims
+export PATH=/usr/local/bin:$PATH
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -78,7 +80,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git fzf zsh-autosuggestions)
-plugins=(git fzf zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git fzf zsh-autosuggestions zsh-syntax-highlighting aidbcli)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -110,8 +112,20 @@ if type anyenv &>/dev/null; then
   eval "$(anyenv init -)"
 fi
 
+# nodenv
+if type nodenv &>/dev/null; then
+  eval "$(nodenv init -)"
+fi
+
+# Add $HOME/bin and $HOME/.local/bin AFTER nodenv/anyenv init
+# so they take precedence over nodenv shims (e.g., for native claude install)
+export PATH=$HOME/bin:$HOME/.local/bin:$PATH
+
 # cargo
 [[ ! -f ~/.cargo/env ]] || source ~/.cargo/env
+
+# vcpkg
+export VCPKG_ROOT="$HOME/.external/vcpkg"
 
 
 # zsh settings for history
@@ -151,7 +165,6 @@ fi
 
 # Useful Aliases
 alias gg='git grep -n --color --heading --break'
-bindkey '	' autosuggest-accept # zsh-autosuggestions use tab instead of right arrow
 
 
 ### Source additional files, to allow for custom config on different machines

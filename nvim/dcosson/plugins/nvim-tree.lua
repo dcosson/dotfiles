@@ -69,7 +69,12 @@ return {
 		require("nvim-tree").setup(opts)
 
 		-- Setup keymaps
-		vim.keymap.set("n", "<leader>W", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" }) -- toggle file explorer
+		vim.keymap.set(
+			"n",
+			"<leader>W",
+			"<cmd>NvimTreeFindFileToggle<CR>",
+			{ desc = "Toggle NvimTree explorer to current file" }
+		)
 		vim.keymap.set(
 			"n",
 			"<leader>ef",
