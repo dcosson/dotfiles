@@ -9,7 +9,7 @@ return {
 		{ "<leader>td", "<cmd>Trouble [D]iagnostics toggle<CR>", desc = "Open trouble workspace diagnostics" },
 		{
 			"<leader>tD",
-			"<cmd>Trouble [D]iagnostics toggle turrent buffer<CR>",
+			"<cmd>Trouble [D]iagnostics toggle current buffer<CR>",
 			desc = "Open trouble document diagnostics",
 		},
 		{ "<leader>tq", "<cmd>Trouble [Q]uickfix toggle<CR>", desc = "Open trouble quickfix list" },

@@ -9,3 +9,9 @@ vim/black
 
 # Move instead of overwriting
 old_dotfiles
+
+# Secrets and credentials
+*.pem
+*.key
+.env
+.env.*
