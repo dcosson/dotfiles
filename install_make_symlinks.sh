@@ -80,4 +80,41 @@ for f in ${dotfile_whitelist[@]}; do
   fi
 done
 
+# nvim config lives at ~/.config/nvim with a nested symlink layout so other
+# runtime files (lazy-lock.json, colors/, additional plugins) can coexist.
+mkdir -p "${HOME}/.config/nvim/lua"
+
+nvim_links=(
+  "${DIR}/nvim/init.lua:${HOME}/.config/nvim/init.lua"
+  "${DIR}/nvim/dcosson:${HOME}/.config/nvim/lua/dcosson"
+)
+
+for pair in "${nvim_links[@]}"; do
+  src="${pair%%:*}"
+  dst="${pair##*:}"
+
+  if [ -h "${dst}" ]; then
+    current_target=$(readlink "${dst}")
+    if [ "${current_target}" != "${src}" ]; then
+      echo "WARN: removed symlink: ${dst} -> ${current_target}" 1>&2
+      rm "${dst}"
+      create_symlink "${src}" "${dst}"
+    else
+      echo "file ${dst} already set correctly" 1>&2
+    fi
+    continue
+  fi
+
+  if [ -e "${dst}" ]; then
+    if [ ! -d "${backup_dir}" ]; then
+      echo "WARN: made backup directory ${backup_dir}"
+      mkdir "${backup_dir}"
+    fi
+    echo "WARN: moving existing ${dst} to ${backup_dir}" 1>&2
+    mv "${dst}" "${backup_dir}/$(basename ${dst})-$(date +%s)"
+  fi
+
+  create_symlink "${src}" "${dst}"
+done
+
 touch "${HOME}/.dotfiles-installed"
