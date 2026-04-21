@@ -81,18 +81,20 @@ for f in ${dotfile_whitelist[@]}; do
   fi
 done
 
-# nvim: symlink init.lua and lua/dcosson individually so lazy.nvim's
-# generated lazy-lock.json can live alongside without ending up in the repo.
-mkdir -p "${HOME}/.config/nvim/lua"
-
-nvim_links=(
+# Configs that don't fit the ~/.<name> pattern handled by the whitelist above.
+# nvim: individual symlinks (not a whole-dir) so lazy.nvim's generated
+#       lazy-lock.json can live alongside without ending up in the repo.
+# ghostty: lives under ~/.config/ghostty/config (XDG path ghostty reads on macOS).
+extra_links=(
   "${DIR}/nvim/init.lua:${HOME}/.config/nvim/init.lua"
   "${DIR}/nvim/dcosson:${HOME}/.config/nvim/lua/dcosson"
+  "${DIR}/ghostty/config:${HOME}/.config/ghostty/config"
 )
 
-for pair in "${nvim_links[@]}"; do
+for pair in "${extra_links[@]}"; do
   src="${pair%%:*}"
   dst="${pair##*:}"
+  mkdir -p "$(dirname "${dst}")"
 
   if [ -h "${dst}" ]; then
     current_target=$(readlink "${dst}")
