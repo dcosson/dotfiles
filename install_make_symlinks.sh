@@ -80,8 +80,8 @@ for f in ${dotfile_whitelist[@]}; do
   fi
 done
 
-# nvim config lives at ~/.config/nvim with a nested symlink layout so other
-# runtime files (lazy-lock.json, colors/, additional plugins) can coexist.
+# nvim: symlink init.lua and lua/dcosson individually so lazy.nvim's
+# generated lazy-lock.json can live alongside without ending up in the repo.
 mkdir -p "${HOME}/.config/nvim/lua"
 
 nvim_links=(
