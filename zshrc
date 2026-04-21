@@ -170,3 +170,10 @@ alias gg='git grep -n --color --heading --break'
 ### Source additional files, to allow for custom config on different machines
 [[ ! -f ~/.zshrc_extensions ]] || source ~/.zshrc_extensions
 [[ ! -f ~/.zshrc_secrets ]] || source ~/.zshrc_secrets
+
+# bun completions
+[ -s "/Users/dcosson/.bun/_bun" ] && source "/Users/dcosson/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
