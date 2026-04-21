@@ -80,7 +80,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git fzf zsh-autosuggestions)
-plugins=(git fzf zsh-autosuggestions zsh-syntax-highlighting aidbcli)
+plugins=(git fzf zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -98,7 +98,7 @@ if type brew &>/dev/null; then
     FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 
     autoload -Uz compinit
-    compinit
+    compinit -u
 fi
 
 # Set up fzf key bindings and fuzzy completion
