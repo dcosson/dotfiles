@@ -85,10 +85,16 @@ done
 # nvim: individual symlinks (not a whole-dir) so lazy.nvim's generated
 #       lazy-lock.json can live alongside without ending up in the repo.
 # ghostty: lives under ~/.config/ghostty/config (XDG path ghostty reads on macOS).
+#          cmux embeds ghostty and reads this same file, so the terminal theme,
+#          background and font are shared by both from here.
+# cmux: only the file-managed settings (JSONC). Anything left commented out in it
+#       falls back to whatever cmux has saved in its own Settings UI, which lives
+#       in the com.cmuxterm.app prefs domain and is NOT captured by this repo.
 extra_links=(
   "${DIR}/nvim/init.lua:${HOME}/.config/nvim/init.lua"
   "${DIR}/nvim/dcosson:${HOME}/.config/nvim/lua/dcosson"
   "${DIR}/ghostty/config:${HOME}/.config/ghostty/config"
+  "${DIR}/cmux/cmux.json:${HOME}/.config/cmux/cmux.json"
 )
 
 for pair in "${extra_links[@]}"; do

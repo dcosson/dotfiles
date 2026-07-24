@@ -10,7 +10,9 @@ There's nothing personally tied to me (user name, email, etc.) so these dotfiles
 
 There is no single `install.sh` — run these individually, in this order:
 
-`install_make_symlinks.sh` - symlinks all dotfiles into place (backing up anything already there to `old_dotfiles/`), plus the nvim and ghostty configs that don't fit the `~/.<name>` pattern.
+`install_make_symlinks.sh` - symlinks all dotfiles into place (backing up anything already there to `old_dotfiles/`), plus the nvim, ghostty and cmux configs that don't fit the `~/.<name>` pattern.
+
+cmux embeds ghostty and reads the same `~/.config/ghostty/config`, so terminal theme/background/font are shared by both from that one file. `cmux/cmux.json` only carries its *file-managed* settings — anything left commented out there falls back to cmux's own Settings UI, which lives in the `com.cmuxterm.app` prefs domain and is **not** captured by this repo.
 
 `install_base_system_tools.sh` - bootstraps the basics expected on any machine, in four sections: **Package Managers** (homebrew), **System Tools** (git, coreutils, fzf, jq, tree, gh, neovim, ag), **Programming Languages** (go, bun, uv, rust via rustup, anyenv + pyenv + nodenv), and **Zsh Setup** (oh-my-zsh, powerlevel10k, `fzf-tab`, `zsh-autosuggestions`, `zsh-syntax-highlighting`, gitstatusd, bun completions).
 
