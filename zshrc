@@ -80,7 +80,9 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git fzf zsh-autosuggestions)
-plugins=(git fzf zsh-autosuggestions zsh-syntax-highlighting)
+# fzf-tab must come after compinit but BEFORE plugins that wrap widgets
+# (zsh-autosuggestions, zsh-syntax-highlighting), or tab completion breaks.
+plugins=(git fzf fzf-tab zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
