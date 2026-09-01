@@ -82,6 +82,12 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # plugins=(git fzf zsh-autosuggestions)
 # fzf-tab must come after compinit but BEFORE plugins that wrap widgets
 # (zsh-autosuggestions, zsh-syntax-highlighting), or tab completion breaks.
+# Set PATH, MANPATH, etc., for Homebrew. This runs before oh-my-zsh so brew's
+# zsh-completions are in FPATH by the time oh-my-zsh.sh calls compinit — one
+# compinit for the whole shell instead of two.
+[[ ! -f /opt/homebrew/bin/brew ]] || eval "$(/opt/homebrew/bin/brew shellenv)"
+[[ ! -d /opt/homebrew/share/zsh-completions ]] || FPATH=/opt/homebrew/share/zsh-completions:$FPATH
+
 plugins=(git fzf fzf-tab zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
@@ -92,16 +98,7 @@ source $ZSH/oh-my-zsh.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-# Set PATH, MANPATH, etc., for Homebrew.
-[[ ! -f /opt/homebrew/bin/brew ]] || eval "$(/opt/homebrew/bin/brew shellenv)"
-
-# Turn on completion, using homebrew zsh-completions
-if type brew &>/dev/null; then
-    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-
-    autoload -Uz compinit
-    compinit -u
-fi
+# Homebrew shellenv and compinit now run above, before `source $ZSH/oh-my-zsh.sh`.
 
 # Set up fzf key bindings and fuzzy completion
 if fzf --help &>/dev/null; then
@@ -109,18 +106,20 @@ if fzf --help &>/dev/null; then
   source <(fzf --zsh)
 fi
 
-# anyenv
-if type anyenv &>/dev/null; then
-  eval "$(anyenv init -)"
+# pyenv, installed under anyenv. Initialized directly rather than through
+# `anyenv init -`, which also forks a `bash` subprocess for PATH dedup and runs
+# `nodenv init` — and nodenv has no versions installed, so node comes from
+# Homebrew anyway. `--no-rehash` skips rewriting every shim on each shell
+# start; run `pyenv rehash` by hand after installing a package with a console
+# script.
+export PYENV_ROOT="$HOME/.anyenv/envs/pyenv"
+if [[ -x $PYENV_ROOT/bin/pyenv ]]; then
+  path=($PYENV_ROOT/bin $path)
+  eval "$(pyenv init - --no-rehash zsh)"
 fi
 
-# nodenv
-if type nodenv &>/dev/null; then
-  eval "$(nodenv init -)"
-fi
-
-# Add $HOME/bin and $HOME/.local/bin AFTER nodenv/anyenv init
-# so they take precedence over nodenv shims (e.g., for native claude install)
+# Add $HOME/bin and $HOME/.local/bin AFTER pyenv init
+# so they take precedence over pyenv shims (e.g., for native claude install)
 export PATH=$HOME/bin:$HOME/.local/bin:$PATH
 
 # cargo
